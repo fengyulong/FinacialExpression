@@ -23,7 +23,7 @@ public class AddOperator implements Operator {
 		} else if (a1.getDataType() == DataType.CHARACTER && a2.getDataType() == DataType.STRING) {
 			result = new StringValue(a1.getCharValue() + a2.getStringValue());
 		} else {
-			throw new ArgumentsMismatchException(arguments, "+");
+			throw new ArgumentsMismatchException(arguments, getSymbol());
 		}
 		return result;
 	}

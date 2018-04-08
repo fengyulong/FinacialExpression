@@ -20,7 +20,7 @@ public class DivideOperator implements Operator {
 				throw new ArithmeticException("Divided by zero.");
 			result = new NumberValue(a1.getNumberValue().divide(a2.getNumberValue()));
 		} else {
-			throw new ArgumentsMismatchException(arguments, "/");
+			throw new ArgumentsMismatchException(arguments, getSymbol());
 		}
 		return result;
 	}

@@ -16,7 +16,7 @@ public class MultiplyOperator implements Operator {
 		if (a1.getDataType() == DataType.NUMBER && a2.getDataType() == DataType.NUMBER) {
 			result = new NumberValue(a1.getNumberValue().multiply(a2.getNumberValue()));
 		} else {
-			throw new ArgumentsMismatchException(arguments, "*");
+			throw new ArgumentsMismatchException(arguments, getSymbol());
 		}
 		return result;
 	}
