@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.yulong.expression.function.financial.ZW;
+import com.yulong.expression.function.sys.Max;
 import com.yulong.util.StringUtil;
 
 public class FunctionFactory {
@@ -12,6 +13,7 @@ public class FunctionFactory {
 	
 	static{
 		registerFunction(new ZW());
+		registerFunction(new Max());
 	}
 
 	public static Function getFunction(String identifier) {

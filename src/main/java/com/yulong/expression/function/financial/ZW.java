@@ -5,7 +5,7 @@ import java.util.Map;
 import com.yulong.expression.datatype.Valuable;
 import com.yulong.expression.function.Function;
 
-public class ZW implements Function{
+public class ZW implements Function {
 
 	@Override
 	public String getName() {
@@ -18,9 +18,8 @@ public class ZW implements Function{
 	}
 
 	@Override
-	public Valuable execute(Object[] args, Map<String, Object> env) {
+	public Valuable execute(Valuable[] args, Map<String, Object> env) {
 		return null;
 	}
-	
 
 }

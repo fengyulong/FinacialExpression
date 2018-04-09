@@ -48,7 +48,7 @@ public class ExpressionCalculator {
 		ExpressionNode[] children = expressionNode.getChildren();
 		Operator op = token.getOperator();
 		if (children == null || children.length == 0) {
-			return op.operate(null);
+			return op.operate(new Valuable[0]);
 		}
 		Valuable[] arguments = new Valuable[children.length];
 		for (int i = 0; i < children.length; i++) {
@@ -62,7 +62,7 @@ public class ExpressionCalculator {
 		ExpressionNode[] children = expressionNode.getChildren();
 		Function op = token.getFunction();
 		if (children == null || children.length == 0) {
-			return op.execute(null, env);
+			return op.execute(new Valuable[0], env);
 		}
 		Valuable[] arguments = new Valuable[children.length];
 		for (int i = 0; i < children.length; i++) {

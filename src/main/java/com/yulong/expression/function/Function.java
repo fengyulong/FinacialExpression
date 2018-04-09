@@ -10,6 +10,6 @@ public interface Function {
 	
 	int getDimension();
 	
-	Valuable execute(Object[] args,Map<String,Object> env);
+	Valuable execute(Valuable[] args,Map<String,Object> env);
 	
 }
