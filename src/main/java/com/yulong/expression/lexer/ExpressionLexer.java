@@ -203,16 +203,19 @@ public class ExpressionLexer {
 						nextChar();
 						nextNum++;
 					}
+					int left = 0;
+					int right = 0;
 					do {
 						nextChar();
 						nextNum++;
-						if (this.peek == ',') {
+						if (this.peek == ',' && left == right) {
 							splitNum++;
 						} else if (this.peek == '(') {
-							throw new ExpressionRuntimeException("The arguments in function " + lexeme
-									+ " can only be constants or variables at " + startIndex);
+							left++;
+						} else if (this.peek == ')') {
+							right++;
 						}
-					} while (this.peek != ')');
+					} while (left >= right);
 					while (nextNum > 0) {
 						prevChar();
 						nextNum--;
@@ -300,5 +303,4 @@ public class ExpressionLexer {
 		lexeme = lexeme.substring(0, lexeme.length() - 1);
 		return lexeme;
 	}
-
 }
