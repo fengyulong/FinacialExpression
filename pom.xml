@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.yulong</groupId>
+	<groupId>priv.yulong</groupId>
 	<artifactId>expression</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.0.5.RELEASE</spring.version>
+		<spring.version>4.1.6.RELEASE</spring.version>
 		<mybatis.version>3.2.1</mybatis.version>
 		<slf4j.version>1.6.6</slf4j.version>
 		<log4j.version>1.2.12</log4j.version>
@@ -193,6 +193,7 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.23</version>
 		</dependency>
+		
 
 	</dependencies>
 
