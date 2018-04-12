@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.yulong.user.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="priv.yulong.user.model.User">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+		<result column="IS_DISABLE" jdbcType="CHAR" property="isDisable" typeHandler="priv.yulong.handler.mybatis.BooleanTypeHandler" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, USER_CODE, USER_NAME, USER_PASSWORD, IS_DISABLE
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_USER
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_USER
+		where USER_CODE = #{userCode,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from SYS_USER
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="priv.yulong.user.model.User">
+		insert into SYS_USER (ID, USER_CODE, USER_NAME,
+		USER_PASSWORD, IS_DISABLE)
+		values (#{id,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR},
+		#{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler})
+	</insert>
+	<insert id="insertSelective" parameterType="priv.yulong.user.model.User">
+		insert into SYS_USER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userCode != null">
+				USER_CODE,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="userPassword != null">
+				USER_PASSWORD,
+			</if>
+			<if test="isDisable != null">
+				IS_DISABLE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userCode != null">
+				#{userCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="isDisable != null">
+				#{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="priv.yulong.user.model.User">
+		update SYS_USER
+		<set>
+			<if test="userCode != null">
+				USER_CODE = #{userCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="isDisable != null">
+				IS_DISABLE = #{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="priv.yulong.user.model.User">
+		update SYS_USER
+		set USER_CODE = #{userCode,jdbcType=VARCHAR},
+		USER_NAME = #{userName,jdbcType=VARCHAR},
+		USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+		IS_DISABLE = #{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>
