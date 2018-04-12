@@ -10,12 +10,15 @@ import org.dom4j.Element;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PenetrateController {
-	@RequestMapping(value = "/PenetrateQuery",method = RequestMethod.POST)
-	public void penetrate(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/PenetrateQuery", method = RequestMethod.POST)
+	public ModelAndView penetrate(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("test");
 		String param = request.getParameter("paramXML");
+		model.addObject("xml", param);
 		try {
 			Document document = DocumentHelper.parseText(param);
 			Element root = document.getRootElement();
@@ -23,25 +26,26 @@ public class PenetrateController {
 			String sTime = root.element("periods").element("period").attribute("stime").getValue();
 			String eTime = root.element("periods").element("period").attribute("etime").getValue();
 			String formula = root.element("formulas").element("formula").attribute("value").getValue();
-			System.out.println(unitCode);
-			System.out.println(sTime);
-			System.out.println(eTime);
-			System.out.println(formula);
+			model.addObject("unitCode", unitCode);
+			model.addObject("sTime", sTime);
+			model.addObject("eTime", eTime);
+			model.addObject("formula", formula);
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		return model;
 	}
-	
-//	<scheme>
-//		<units>
-//			<unit code='#601002160'/>
-//		</units>
-//		<user code='admin'/>
-//		<periods>
-//			<period stime='2018-3-1' etime='2018-3-31'/>
-//		</periods>
-//		<formulas>
-//			<formula zb='ZM0100020' value='abs(zw(ye,1001))'/>
-//		</formulas>
-//	</scheme>
+
+	// <scheme>
+	// <units>
+	// <unit code='#601002160'/>
+	// </units>
+	// <user code='admin'/>
+	// <periods>
+	// <period stime='2018-3-1' etime='2018-3-31'/>
+	// </periods>
+	// <formulas>
+	// <formula zb='ZM0100020' value='abs(zw(ye,1001))'/>
+	// </formulas>
+	// </scheme>
 }

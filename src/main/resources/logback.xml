@@ -11,11 +11,13 @@
 		</encoder>
 	</appender>
 	<!-- 按照每天生成日志文件 -->
-	<appender name="FILE"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>info</level>
+		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名 -->
-			<FileNamePattern>${LOG_HOME}/TestWeb.log.%d{yyyy-MM-dd}.log
+			<FileNamePattern>${LOG_HOME}/info.log.%d{yyyy-MM-dd}.log
 			</FileNamePattern>
 			<!--日志文件保留天数 -->
 			<MaxHistory>30</MaxHistory>
@@ -26,14 +28,40 @@
 				%msg%n</pattern>
 		</encoder>
 		<!--日志文件最大的大小 -->
-		<triggeringPolicy
-			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
 			<MaxFileSize>10MB</MaxFileSize>
 		</triggeringPolicy>
 	</appender>
 
+	<appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>error</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/error.log.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<!--日志文件保留天数 -->
+			<MaxHistory>30</MaxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -
+				%msg%n</pattern>
+		</encoder>
+		<!--日志文件最大的大小 -->
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+
 	<!-- 日志输出级别 -->
-	<root level="INFO">
+	<root level="debug">
 		<appender-ref ref="STDOUT" />
+		<!-- <appender-ref ref="FILE_ERROR" />
+		<appender-ref ref="FILE_INFO" /> -->
 	</root>
+
+
 </configuration>
