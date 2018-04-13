@@ -9,7 +9,7 @@ public interface UserService {
 	 * 
 	 * @param user
 	 */
-	void addUser(User user);
+	User addUser(User user);
 
 	/**
 	 * 查询用户
@@ -24,7 +24,7 @@ public interface UserService {
 	 * 
 	 * @param user
 	 */
-	void updateUser(User user);
+	User updateUser(User user);
 
 	/**
 	 * 删除用户

@@ -3,20 +3,23 @@ package priv.yulong.user.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import priv.yulong.user.mapper.UserMapper;
 import priv.yulong.user.model.User;
 import priv.yulong.user.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Resource
 	private UserMapper userMapper;
 
 	@Override
-	public void addUser(User user) {
+	public User addUser(User user) {
 		userMapper.insert(user);
+		return user;
 	}
 
 	@Override
@@ -25,8 +28,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public User updateUser(User user) {
 		userMapper.updateByPrimaryKey(user);
+		return user;
 	}
 
 	@Override

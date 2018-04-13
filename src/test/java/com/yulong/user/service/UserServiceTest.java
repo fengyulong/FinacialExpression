@@ -5,6 +5,8 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yulong.BaseJunit4Test;
 
@@ -17,6 +19,8 @@ public class UserServiceTest extends BaseJunit4Test {
 	private UserService userService;
 
 	@Test
+	@Rollback(true)
+	@Transactional
 	public void test() {
 		User user = new User();
 		user.setId(UUID.randomUUID().toString());
@@ -24,11 +28,9 @@ public class UserServiceTest extends BaseJunit4Test {
 		user.setUserName("测试");
 		user.setUserPassword("pass");
 		user.setDisable(true);
-		try {
-			userService.addUser(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		userService.addUser(user);
+		user = userService.getUser("test");
+		System.out.println(user);
 	}
 
 }

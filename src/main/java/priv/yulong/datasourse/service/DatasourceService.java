@@ -17,14 +17,14 @@ public interface DatasourceService {
 	 * 
 	 * @param datasource
 	 */
-	void addDatasource(Datasource datasource);
+	Datasource addDatasource(Datasource datasource);
 
 	/**
 	 * 更新数据源
 	 * 
 	 * @param datasource
 	 */
-	void updateDatasource(Datasource datasource);
+	Datasource updateDatasource(Datasource datasource);
 
 	/**
 	 * 删除数据源
