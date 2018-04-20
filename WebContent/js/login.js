@@ -54,8 +54,7 @@ $(function(){
 					}
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown){
-					alert(XMLHttpRequest.responseText);
-					alert(XMLHttpRequest.status);
+					$.messager.alert('系统错误','服务器连接错误(' + textStatus + ')，请稍后重试!','error')
 				}
 			});
 		}
