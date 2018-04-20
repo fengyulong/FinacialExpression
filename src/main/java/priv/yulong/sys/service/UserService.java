@@ -1,6 +1,6 @@
-package priv.yulong.user.service;
+package priv.yulong.sys.service;
 
-import priv.yulong.user.model.User;
+import priv.yulong.sys.model.User;
 
 public interface UserService {
 

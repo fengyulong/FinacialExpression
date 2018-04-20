@@ -1,13 +1,13 @@
-package priv.yulong.user.service.impl;
+package priv.yulong.sys.service.impl;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import priv.yulong.user.mapper.UserMapper;
-import priv.yulong.user.model.User;
-import priv.yulong.user.service.UserService;
+import priv.yulong.sys.mapper.UserMapper;
+import priv.yulong.sys.model.User;
+import priv.yulong.sys.service.UserService;
 
 @Service
 @Transactional

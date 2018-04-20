@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yulong.BaseJunit4Test;
 
-import priv.yulong.user.model.User;
-import priv.yulong.user.service.UserService;
+import priv.yulong.sys.model.User;
+import priv.yulong.sys.service.UserService;
 
 public class UserServiceTest extends BaseJunit4Test {
 
@@ -19,17 +19,17 @@ public class UserServiceTest extends BaseJunit4Test {
 	private UserService userService;
 
 	@Test
-	@Rollback(true)
+	@Rollback(false)
 	@Transactional
 	public void test() {
 		User user = new User();
 		user.setId(UUID.randomUUID().toString());
-		user.setUserCode("test");
-		user.setUserName("测试");
-		user.setUserPassword("pass");
-		user.setDisable(true);
+		user.setUserCode("admin");
+		user.setUserName("管理员");
+		user.setUserPassword("admin");
+		user.setDisable(false);
 		userService.addUser(user);
-		user = userService.getUser("test");
+		user = userService.getUser("admin");
 		System.out.println(user);
 	}
 

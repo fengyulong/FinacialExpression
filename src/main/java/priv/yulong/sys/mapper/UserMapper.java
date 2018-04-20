@@ -1,8 +1,8 @@
-package priv.yulong.user.mapper;
+package priv.yulong.sys.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import priv.yulong.user.model.User;
+import priv.yulong.sys.model.User;
 
 @Mapper
 public interface UserMapper {

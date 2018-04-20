@@ -1,4 +1,4 @@
-package priv.yulong.user.model;
+package priv.yulong.sys.model;
 
 public class User {
 	private String id;

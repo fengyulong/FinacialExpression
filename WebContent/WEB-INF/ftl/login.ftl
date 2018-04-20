@@ -11,8 +11,9 @@
 </head>
 <body>
 	<div id="login">
-		<p>账号　<input type="text" id="username" class="textbox"/></p>
+		<p>账号　<input type="text" id="usercode" class="textbox"/></p>
 		<p>密码　<input type="text" id="password" class="textbox"/></p>
+		<input id="rooturl" type="hidden" value="${path}"/>
 	</div>
 	<div id="btn">
 		<a href="#" class="easyui-linkbutton">登录</a>
