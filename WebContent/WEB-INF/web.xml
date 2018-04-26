@@ -63,8 +63,6 @@
 		<url-pattern>*.js</url-pattern>
 		<url-pattern>*.png</url-pattern>
 		<url-pattern>*.css</url-pattern>
-		<url-pattern>/components/*</url-pattern>
-		<url-pattern>/assets/*</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
