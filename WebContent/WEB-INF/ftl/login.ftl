@@ -4,9 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Basic Form - jQuery EasyUI Demo</title>
-	<link rel="stylesheet" type="text/css" href="${path}/css/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="${path}/css/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="${path}/css/login.css">
+	<link rel="stylesheet" type="text/css" href="${path}/static/css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="${path}/static/css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="${path}/static/css/login.css">
 	
 </head>
 <body>
@@ -20,8 +20,8 @@
 	</div>
 	
 	
-<script type="text/javascript" src="${path}/js/easyui/jquery.min.js"></script>
-<script type="text/javascript" src="${path}/js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="${path}/js/login.js"></script>
+<script type="text/javascript" src="${path}/static/js/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="${path}/static/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${path}/static/js/login.js"></script>
 </body>
 </html>

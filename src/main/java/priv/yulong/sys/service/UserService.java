@@ -17,7 +17,7 @@ public interface UserService {
 	 * @param userCode
 	 * @return
 	 */
-	User getUser(String userCode);
+	User getUser(String username);
 
 	/**
 	 * 更新用户

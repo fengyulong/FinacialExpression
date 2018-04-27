@@ -1,100 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="priv.yulong.sys.mapper.UserMapper">
-	<resultMap id="BaseResultMap" type="priv.yulong.sys.model.User">
-		<id column="ID" jdbcType="VARCHAR" property="id" />
-		<result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
-		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
-		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
-		<result column="IS_DISABLE" jdbcType="CHAR" property="isDisable" typeHandler="priv.yulong.handler.mybatis.BooleanTypeHandler" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		ID, USER_CODE, USER_NAME, USER_PASSWORD, IS_DISABLE
-	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from SYS_USER
-		where ID = #{id,jdbcType=VARCHAR}
-	</select>
-	<select id="selectByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from SYS_USER
-		where USER_CODE = #{userCode,jdbcType=VARCHAR}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from SYS_USER
-		where ID = #{id,jdbcType=VARCHAR}
-	</delete>
-	<insert id="insert" parameterType="priv.yulong.sys.model.User">
-		insert into SYS_USER (ID, USER_CODE, USER_NAME,
-		USER_PASSWORD, IS_DISABLE)
-		values (#{id,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
-		#{userPassword,jdbcType=VARCHAR},
-		#{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler})
-	</insert>
-	<insert id="insertSelective" parameterType="priv.yulong.sys.model.User">
-		insert into SYS_USER
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				ID,
-			</if>
-			<if test="userCode != null">
-				USER_CODE,
-			</if>
-			<if test="userName != null">
-				USER_NAME,
-			</if>
-			<if test="userPassword != null">
-				USER_PASSWORD,
-			</if>
-			<if test="isDisable != null">
-				IS_DISABLE,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=VARCHAR},
-			</if>
-			<if test="userCode != null">
-				#{userCode,jdbcType=VARCHAR},
-			</if>
-			<if test="userName != null">
-				#{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="userPassword != null">
-				#{userPassword,jdbcType=VARCHAR},
-			</if>
-			<if test="isDisable != null">
-				#{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="priv.yulong.sys.model.User">
-		update SYS_USER
-		<set>
-			<if test="userCode != null">
-				USER_CODE = #{userCode,jdbcType=VARCHAR},
-			</if>
-			<if test="userName != null">
-				USER_NAME = #{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="userPassword != null">
-				USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
-			</if>
-			<if test="isDisable != null">
-				IS_DISABLE = #{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler},
-			</if>
-		</set>
-		where ID = #{id,jdbcType=VARCHAR}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="priv.yulong.sys.model.User">
-		update SYS_USER
-		set USER_CODE = #{userCode,jdbcType=VARCHAR},
-		USER_NAME = #{userName,jdbcType=VARCHAR},
-		USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
-		IS_DISABLE = #{isDisable,jdbcType=CHAR,javaType=java.lang.Boolean,typeHandler=priv.yulong.handler.mybatis.BooleanTypeHandler}
-		where ID = #{id,jdbcType=VARCHAR}
-	</update>
+  <resultMap id="BaseResultMap" type="priv.yulong.sys.model.User">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="status" jdbcType="CHAR" property="status" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
+    <result column="sex" jdbcType="CHAR" property="sex" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="THEME" jdbcType="VARCHAR" property="theme" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, username, password, nickname, status, sex, email, mobile, create_user, create_date, 
+    modify_user, modify_date, THEME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_USER
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SYS_USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="priv.yulong.sys.model.User">
+    insert into SYS_USER (ID, username, password, 
+      nickname, status, sex, email, 
+      mobile, create_user, create_date, 
+      modify_user, modify_date, THEME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler}, #{email,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, #{theme,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="priv.yulong.sys.model.User">
+    insert into SYS_USER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="theme != null">
+        THEME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="theme != null">
+        #{theme,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.yulong.sys.model.User">
+    update SYS_USER
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="theme != null">
+        THEME = #{theme,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.yulong.sys.model.User">
+    update SYS_USER
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      sex = #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      THEME = #{theme,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>
