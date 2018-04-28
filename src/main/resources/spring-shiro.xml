@@ -14,9 +14,20 @@
 	<!-- Shiro的主要业务层对象基于web的应用程序 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="userAuthorizingRealm" />
-		<property name="cacheManager" ref="shiroEhcacheManager" />
+		<property name="cacheManager" ref="shiroCacheManager" />
 	</bean>
 
+	<bean id="userAuthorizingRealm" class="priv.yulong.sys.security.UserAuthorizingRealm">
+		<property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="MD5"/>
+                <property name="hashIterations" value="3" />
+                <property name="hashSalted" value="true" />
+            </bean>
+        </property>
+	</bean>
+
+	
 
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -31,10 +42,10 @@
 			</value>
 		</property>
 	</bean>
-
+	
 	<!-- 用户授权信息Cache, 采用EhCache -->
-	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-		<property name="cacheManagerConfigFile" value="classpath:cache/ehcache-shiro.xml" />
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehcache" />
 	</bean>
 
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->

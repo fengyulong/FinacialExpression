@@ -11,12 +11,11 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.stereotype.Service;
 
 import priv.yulong.sys.model.User;
 import priv.yulong.sys.service.UserService;
 
-@Service
+
 public class UserAuthorizingRealm extends AuthorizingRealm {
 	@Resource
 	private UserService userService;

@@ -16,14 +16,14 @@
 	</context:component-scan>
 
 	<!-- ecache 配置 -->
-	<cache:annotation-driven cache-manager="cacheManager" />
+	<cache:annotation-driven cache-manager="springCacheManager" />
 
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+	<bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache"></property>
 	</bean>
 
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation" value="classpath:cache/ehcache-local.xml"></property>
+		<property name="configLocation" value="classpath:cache/ehcache-setting.xml"></property>
 	</bean>
 	<!-- mybatis 配置 -->
 	<import resource="classpath:spring-mybatis.xml" />
