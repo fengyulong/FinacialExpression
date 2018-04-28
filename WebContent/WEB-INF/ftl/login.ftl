@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Basic Form - jQuery EasyUI Demo</title>
+	<title>登录页面</title>
 	<link rel="stylesheet" type="text/css" href="${path}/static/css/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="${path}/static/css/themes/icon.css">
 	

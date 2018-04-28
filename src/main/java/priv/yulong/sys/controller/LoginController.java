@@ -59,4 +59,9 @@ public class LoginController {
 		return "unAuthorization";
 	}
 
+	@RequestMapping(value = "/")
+	public String manager() {
+		return "manager";
+	}
+
 }
