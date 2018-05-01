@@ -6,6 +6,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +45,12 @@ public class LoginController {
 			e.printStackTrace();
 			msg = e.getMessage();
 		} catch (IncorrectCredentialsException e) {
+			e.printStackTrace();
+			msg = e.getMessage();
+		}catch(UnauthenticatedException e){
+			e.printStackTrace();
+			msg = e.getMessage();
+		}catch(Exception e){
 			e.printStackTrace();
 			msg = e.getMessage();
 		}

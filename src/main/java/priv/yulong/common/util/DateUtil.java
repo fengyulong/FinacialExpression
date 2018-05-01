@@ -1,4 +1,4 @@
-package priv.yulong.util;
+package priv.yulong.common.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

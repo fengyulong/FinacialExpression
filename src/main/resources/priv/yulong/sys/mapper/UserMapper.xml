@@ -26,6 +26,11 @@
     from SYS_USER
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_USER
+  </select>
   <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

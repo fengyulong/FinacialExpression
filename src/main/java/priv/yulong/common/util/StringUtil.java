@@ -1,4 +1,4 @@
-package priv.yulong.util;
+package priv.yulong.common.util;
 
 public class StringUtil {
 	/**

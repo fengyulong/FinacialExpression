@@ -1,5 +1,8 @@
 package priv.yulong.sys.mapper;
 
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import priv.yulong.sys.model.User;
@@ -19,6 +22,8 @@ public interface UserMapper {
 	int updateByPrimaryKeySelective(User record);
 
 	int updateByPrimaryKey(User record);
+	
+	List<User> selectUser();
 	
 	
 }

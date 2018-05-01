@@ -1,5 +1,7 @@
 package priv.yulong.sys.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +38,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(User user) {
 		userMapper.updateByPrimaryKey(user);
+	}
+
+	@Override
+	public List<User> getUser() {
+		return userMapper.selectUser();
 	}
 
 }

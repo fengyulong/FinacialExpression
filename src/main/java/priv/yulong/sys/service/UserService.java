@@ -1,5 +1,7 @@
 package priv.yulong.sys.service;
 
+import java.util.List;
+
 import priv.yulong.sys.model.User;
 
 public interface UserService {
@@ -32,4 +34,6 @@ public interface UserService {
 	 * @param user
 	 */
 	void deleteUser(User user);
+	
+	List<User> getUser();
 }
