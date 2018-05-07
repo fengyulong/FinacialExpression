@@ -31,7 +31,7 @@ public class UserAuthorizingRealm extends AuthorizingRealm {
 			throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		String username = token.getUsername();
-		User user = userService.getUser(username);
+		User user = userService.getUserByName(username);
 		if (user != null) {
 			String password = user.getPassword();
 			ByteSource salt = ByteSource.Util.bytes(username);

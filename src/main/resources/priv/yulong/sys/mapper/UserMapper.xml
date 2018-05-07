@@ -26,10 +26,48 @@
     from SYS_USER
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="selectUser" resultMap="BaseResultMap">
+  <select id="selectUser" parameterType="priv.yulong.sys.model.User" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from SYS_USER
+    <trim prefix="where" prefixOverrides="and|or">
+    	<if test="username != null and username != ''">
+	        and username = #{username,jdbcType=VARCHAR}
+	      </if>
+	      <if test="password != null and password != ''">
+	        and password = #{password,jdbcType=VARCHAR}
+	      </if>
+	      <if test="nickname != null and nickname != ''">
+	        and nickname = #{nickname,jdbcType=VARCHAR}
+	      </if>
+	      <if test="status != null and status != ''">
+	        and status = #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+	      </if>
+	      <if test="sex != null and sex != ''">
+	        and sex = #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+	      </if>
+	      <if test="email != null and email != ''">
+	        and email = #{email,jdbcType=VARCHAR}
+	      </if>
+	      <if test="mobile != null and mobile != ''">
+	        and mobile = #{mobile,jdbcType=VARCHAR}
+	      </if>
+	      <if test="createUser != null and createUser != ''">
+	        and create_user = #{createUser,jdbcType=VARCHAR}
+	      </if>
+	      <if test="createDate != null">
+	        and create_date = #{createDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="modifyUser != null and modifyUser != ''">
+	        and modify_user = #{modifyUser,jdbcType=VARCHAR}
+	      </if>
+	      <if test="modifyDate != null">
+	        and modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="theme != null and theme != ''">
+	        and THEME = #{theme,jdbcType=VARCHAR}
+	      </if>
+    </trim>
   </select>
   <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 

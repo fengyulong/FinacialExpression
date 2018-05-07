@@ -21,3 +21,9 @@ $(function() {
 	});
 
 });
+
+function add() {
+	$('#dlg').dialog({
+		
+	});
+}

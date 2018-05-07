@@ -19,7 +19,15 @@ public interface UserService {
 	 * @param userCode
 	 * @return
 	 */
-	User getUser(String username);
+	User getUserByName(String username);
+
+	/**
+	 * 查询用户
+	 * 
+	 * @param id
+	 * @return
+	 */
+	User getUserById(String id);
 
 	/**
 	 * 更新用户
@@ -31,9 +39,9 @@ public interface UserService {
 	/**
 	 * 删除用户
 	 * 
-	 * @param user
+	 * @param id
 	 */
-	void deleteUser(User user);
-	
-	List<User> getUser();
+	void deleteUser(String id);
+
+	List<User> getUser(User user);
 }

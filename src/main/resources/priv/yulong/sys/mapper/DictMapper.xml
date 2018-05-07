@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.yulong.sys.mapper.DictMapper">
+	<resultMap id="BaseResultMap" type="priv.yulong.sys.model.Dict">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="TEXT" jdbcType="VARCHAR" property="text" />
+		<result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="IS_LEAF" jdbcType="CHAR" property="isLeaf" />
+	</resultMap>
+	<resultMap id="treeResultMap" type="priv.yulong.sys.model.Dict" extends="BaseResultMap">
+		<collection property="children" javaType="java.util.ArrayList" column="id" ofType="priv.yulong.sys.model.Dict"
+			select="selectSubDict"></collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TEXT, PARENT_ID, REMARK, IS_LEAF
+	</sql>
+	
+	<select id="selectSubDict" parameterType="java.lang.String" resultMap="treeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_DICT
+		where PARENT_ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectDictTree" parameterType="java.lang.String" resultMap="treeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_DICT
+		where PARENT_ID is null
+	</select>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_DICT
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from SYS_DICT
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="priv.yulong.sys.model.Dict">
+		insert into SYS_DICT (ID, TEXT, PARENT_ID,
+		REMARK, IS_LEAF)
+		values
+		(#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{isLeaf,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="priv.yulong.sys.model.Dict">
+		insert into SYS_DICT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="text != null">
+				TEXT,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="isLeaf != null">
+				IS_LEAF,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="text != null">
+				#{text,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="isLeaf != null">
+				#{isLeaf,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="priv.yulong.sys.model.Dict">
+		update SYS_DICT
+		<set>
+			<if test="text != null">
+				TEXT = #{text,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="isLeaf != null">
+				IS_LEAF = #{isLeaf,jdbcType=CHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="priv.yulong.sys.model.Dict">
+		update SYS_DICT
+		set TEXT = #{text,jdbcType=VARCHAR},
+		PARENT_ID =
+		#{parentId,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		IS_LEAF = #{isLeaf,jdbcType=CHAR}
+		where ID =
+		#{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

@@ -13,18 +13,18 @@ $(function() {
 		if ($('.easyui-tabs').tabs('exists', option.text)) {
 			$('.easyui-tabs').tabs('select', option.text)
 		} else {
+			
 			$('.easyui-tabs').tabs('add', {
 				title : option.text,
-				href : '/expression/user',
+				//href : '/expression/sys/user/list',
+				content : '<iframe src="'+$(this).attr('url')+'" style="width:100%;height:100%;margin:0px;border:none" scrolling="no"/>',
+				//iniframe : true,
 				closable : true,
-				tools : [ {
-					iconCls : 'icon-mini-refresh',
-					handler : function() {
-						alert('refresh');
-					}
-				} ],
+				
 			});
 		}
 	});
 
 });
+
+

@@ -35,7 +35,7 @@ public class UserServiceTest extends BaseJunit4Test {
 //		//user = userService.getUser("admin");
 //		System.out.println(user);
 		 Page<User> page = PageHelper.startPage(1, 2, true);
-		List<User> list = userService.getUser();
+		List<User> list = userService.getUser(new User());
 		//PageInfo pageInfo = new PageInfo<>(list,5);  
 		DataGridModel<User> grid = new DataGridModel<>();
 		grid.setRows(list);

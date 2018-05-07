@@ -25,24 +25,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String username) {
+	public User getUserByName(String username) {
 		return userMapper.selectByUsername(username);
 	}
 
 	@Override
 	public User updateUser(User user) {
-		userMapper.updateByPrimaryKey(user);
+		userMapper.updateByPrimaryKeySelective(user);
 		return user;
 	}
 
 	@Override
-	public void deleteUser(User user) {
-		userMapper.updateByPrimaryKey(user);
+	public void deleteUser(String id) {
+		userMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public List<User> getUser() {
-		return userMapper.selectUser();
+	public List<User> getUser(User user) {
+		return userMapper.selectUser(user);
+	}
+
+	@Override
+	public User getUserById(String id) {
+		return userMapper.selectByPrimaryKey(id);
 	}
 
 }
