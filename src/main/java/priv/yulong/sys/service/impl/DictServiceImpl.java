@@ -27,7 +27,7 @@ public class DictServiceImpl implements DictService {
 	}
 
 	@Override
-	public Dict selectByPrimaryKey(String dictCode) {
+	public Dict getByPrimaryKey(String dictCode) {
 		return dictMapper.selectByPrimaryKey(dictCode);
 	}
 
@@ -42,7 +42,7 @@ public class DictServiceImpl implements DictService {
 	}
 
 	@Override
-	public List<Dict> selectDictTree() {
+	public List<Dict> getDictTree() {
 		return dictMapper.selectDictTree();
 	}
 

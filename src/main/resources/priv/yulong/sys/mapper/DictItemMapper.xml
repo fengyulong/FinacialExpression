@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.yulong.sys.mapper.DictItemMapper">
+  <resultMap id="BaseResultMap" type="priv.yulong.sys.model.DictItem">
+    <id column="DICT_ID" jdbcType="VARCHAR" property="dictId" />
+    <id column="VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="TEXT" jdbcType="VARCHAR" property="text" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DICT_ID, VALUE, TEXT, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="priv.yulong.sys.model.DictItemKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_DICT_ITEM
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+      and VALUE = #{value,jdbcType=VARCHAR}
+  </select>
+  <select id="selectItems" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from SYS_DICT_ITEM
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="priv.yulong.sys.model.DictItemKey">
+    delete from SYS_DICT_ITEM
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+      and VALUE = #{value,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="priv.yulong.sys.model.DictItem">
+    insert into SYS_DICT_ITEM (DICT_ID, VALUE, TEXT, 
+      REMARK)
+    values (#{dictId,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="priv.yulong.sys.model.DictItem">
+    insert into SYS_DICT_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dictId != null">
+        DICT_ID,
+      </if>
+      <if test="value != null">
+        VALUE,
+      </if>
+      <if test="text != null">
+        TEXT,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dictId != null">
+        #{dictId,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.yulong.sys.model.DictItem">
+    update SYS_DICT_ITEM
+    <set>
+      <if test="text != null">
+        TEXT = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+      and VALUE = #{value,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.yulong.sys.model.DictItem">
+    update SYS_DICT_ITEM
+    set TEXT = #{text,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+      and VALUE = #{value,jdbcType=VARCHAR}
+  </update>
+</mapper>

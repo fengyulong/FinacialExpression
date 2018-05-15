@@ -25,15 +25,7 @@
 		<tr>
 			<td>性别:</td>
 			<td>
-				<input class="easyui-combobox" name="sex"  value="${(user.sex)!}" data-options=" valueField: 'value',
-																								textField: 'label',
-																								data: [{
-																										label: '男',
-																										value: 'M'
-																									},{
-																										label: '女',
-																										value: 'F'
-																									}]" />
+				<input class="easyui-combobox" name="sex"  value="${(user.sex)!}" data-options="valueField:'value',textField:'text',method:'get',url:'${path}/sys/dict/itemQuery?dictId=USER_SEX'" />
 			</td>
 			<td>状态:</td>
 			<td><input class="easyui-textbox" type="text" name="state" data-options="required:true"  value="${(user.state)!}" /></td>

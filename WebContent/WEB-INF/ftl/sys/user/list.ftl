@@ -28,7 +28,25 @@
 	<script type="text/javascript" src="${path}/static/js/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="${path}/static/js/easyui/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript">
-	var d,dg;
+	var d,dg,user_sex_json;
+	function userSexFormatter(value){
+		if(typeof(user_sex_json) == 'undefined'){
+			$.ajax({
+				type : 'get',
+				async: false,
+				url : '${path}/sys/dict/itemQuery?dictId=USER_SEX',
+				success : function(data){
+					user_sex_json = data;	
+				}
+			});
+		}
+		for(i=0;i<user_sex_json.length;i++){
+			if(user_sex_json[i].value == value){
+				return user_sex_json[i].text ;
+			}
+		}
+		return '';
+	}
 	$(function() {
 		dg = $('#user_table').datagrid({
 			url : '/expression/sys/user/query',
@@ -45,7 +63,8 @@
 			{field : 'password',title : ' 密码',width : 100,sortable : true,},
 			{field : 'email',title : ' 邮箱',width : 100,sortable : true,},
 			{field : 'mobile',title : ' 手机号',width : 100,sortable : true,},
-			{field : 'sex',title : ' 性别',width : 100,sortable : true,formatter : function(value,row,index){if(value == 'M'){ return '男';}else if(value == 'F') {return '女';}else{ return '';}}} 
+			//{field : 'sex',title : ' 性别',width : 100,sortable : true,formatter : function(value,row,index){if(value == 'M'){ return '男';}else if(value == 'F') {return '女';}else{ return '';}}} 
+			{field : 'sex',title : ' 性别',width : 100,sortable : true,formatter : function(value,row,index){return userSexFormatter(value)}} 
 			] ],
 			toolbar : '#tb'
 		});

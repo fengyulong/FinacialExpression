@@ -23,7 +23,7 @@ public class DictServiceTest extends BaseJunit4Test{
 	@Rollback(false)
 	@Transactional
 	public void test(){
-		List<Dict> dict = dictService.selectDictTree();
+		List<Dict> dict = dictService.getDictTree();
 		System.out.println(JSON.toJSONString(dict));
 	}
 	

@@ -11,12 +11,12 @@ public interface DictService {
 
 	void add(Dict record);
 
-	Dict selectByPrimaryKey(String dictCode);
+	Dict getByPrimaryKey(String dictCode);
 
-	void updateSelective(Dict record);
+	void updateSelective(Dict dict);
 
-	void update(Dict record);
+	void update(Dict dict);
 
-	List<Dict> selectDictTree();
+	List<Dict> getDictTree();
 
 }

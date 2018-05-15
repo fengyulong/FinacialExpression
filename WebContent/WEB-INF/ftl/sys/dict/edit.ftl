@@ -4,7 +4,7 @@
 	<table style="width:100%;padding:10px;">
     	<tr>
 			<td>代码:</td>
-			<td><input class="easyui-textbox" type="text" name="id" data-options="required:true" <#if (dict.id)??>readonly="readonly"</#if> value="${(dict.id)!}" /></td>
+			<td><input class="easyui-textbox" type="text" name="id" data-options="required:true,validType:'syscode',invalidMessage:'只能输入字母、数字或下划线'" <#if (dict.id)??>readonly="readonly"</#if> value="${(dict.id)!}" /></td>
 		</tr>
 		<tr>
 			<td>名称:</td>
@@ -47,4 +47,10 @@
 			}
 		}	
 	});
+	
+	function fnKeyUp(){
+		this.value=this.value.toUpperCase();
+    }
+
+	
 </script>
