@@ -11,7 +11,7 @@
 	
 	<div class="easyui-layout">
 		<div data-options="region:'west',split:true " style="width:200px;">
-			<div class="easyui-panel" data-options="border:false">
+			<div id="tree_tb" class="easyui-panel" data-options="border:false">
 				<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="add_tree()">新增</a>
 				<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" onclick="edit_tree()">编辑</a>
 				<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="remove_tree()">删除</a>

@@ -63,7 +63,6 @@
 			{field : 'password',title : ' 密码',width : 100,sortable : true,},
 			{field : 'email',title : ' 邮箱',width : 100,sortable : true,},
 			{field : 'mobile',title : ' 手机号',width : 100,sortable : true,},
-			//{field : 'sex',title : ' 性别',width : 100,sortable : true,formatter : function(value,row,index){if(value == 'M'){ return '男';}else if(value == 'F') {return '女';}else{ return '';}}} 
 			{field : 'sex',title : ' 性别',width : 100,sortable : true,formatter : function(value,row,index){return userSexFormatter(value)}} 
 			] ],
 			toolbar : '#tb'

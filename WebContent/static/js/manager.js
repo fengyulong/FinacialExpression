@@ -16,11 +16,8 @@ $(function() {
 			
 			$('.easyui-tabs').tabs('add', {
 				title : option.text,
-				//href : '/expression/sys/user/list',
 				content : '<iframe src="'+$(this).attr('url')+'" style="width:100%;height:100%;margin:0px;border:none" scrolling="no"/>',
-				//iniframe : true,
 				closable : true,
-				
 			});
 		}
 	});

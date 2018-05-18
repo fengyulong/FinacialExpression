@@ -14,8 +14,9 @@
 		<div data-options="region:'west',split:true" title="West" style="width:200px;">
 			<div class="easyui-accordion" data-options="fit:true,border:false">
 				<div title="系统设置">
-					<a href="#" id="b1" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" url="${path}/sys/user/list" style="width:98%;  margin-bottom:2px; text-align:left;">用户管理</a>
-					<a href="#" id="b2" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'" url="${path}/sys/dict/list" style="width:98%;  margin-bottom:2px; text-align:left;">字典管理</a>
+					<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" url="${path}/sys/user/list" style="width:98%;  margin-bottom:2px; text-align:left;">用户管理</a>
+					<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'" url="${path}/sys/dict/list" style="width:98%;  margin-bottom:2px; text-align:left;">字典管理</a>
+					<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" url="${path}/sys/permission/list" style="width:98%;  margin-bottom:2px; text-align:left;">权限管理</a>
 				</div>
 				<div title="系统设置">
 					<a href="#" id="b3" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-ok'" style="width:98%;  margin-bottom:5px; text-align:left;">菜单管理</a>

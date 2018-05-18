@@ -31,7 +31,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!--生成对应表及类名 -->
-		<table tableName="sys_dict_item" domainObjectName="DictItem" enableCountByExample="false" enableUpdateByExample="false"
+		<table tableName="SYS_PERMISSION" domainObjectName="Permission" enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 	</context>
 </generatorConfiguration>
