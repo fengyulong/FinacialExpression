@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="priv.yulong.datasourse.mapper.DatasourceMapper">
   <resultMap id="BaseResultMap" type="priv.yulong.datasourse.model.Datasource">
-    <id column="ID" jdbcType="CHAR" property="id" />
-    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <id column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="SOFT_VERSION" jdbcType="VARCHAR" property="softVersion" />
     <result column="DB_TYPE" jdbcType="VARCHAR" property="dbType" />
@@ -14,40 +13,37 @@
     <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, CODE, NAME, SOFT_VERSION, DB_TYPE, INSTANCE, HOST, PORT, USER_NAME, USER_PASSWORD
+    CODE, NAME, SOFT_VERSION, DB_TYPE, INSTANCE, HOST, PORT, USER_NAME, USER_PASSWORD
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from DIC_DATASOURCE
-    where ID = #{id,jdbcType=CHAR}
+    where CODE = #{code,jdbcType=VARCHAR}
   </select>
-  <select id="selectByDatasourceCode" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select 
     <include refid="Base_Column_List" />
     from DIC_DATASOURCE
-    where CODE = #{code,jdbcType=CHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from DIC_DATASOURCE
-    where ID = #{id,jdbcType=CHAR}
+    where CODE = #{code,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="priv.yulong.datasourse.model.Datasource">
-    insert into DIC_DATASOURCE (ID, CODE, NAME, 
-      SOFT_VERSION, DB_TYPE, INSTANCE, 
-      HOST, PORT, USER_NAME, 
-      USER_PASSWORD)
-    values (#{id,jdbcType=CHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{softVersion,jdbcType=VARCHAR}, #{dbType,jdbcType=VARCHAR}, #{instance,jdbcType=VARCHAR}, 
-      #{host,jdbcType=VARCHAR}, #{port,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{userPassword,jdbcType=VARCHAR})
+    insert into DIC_DATASOURCE (CODE, NAME, SOFT_VERSION, 
+      DB_TYPE, INSTANCE, HOST, 
+      PORT, USER_NAME, USER_PASSWORD
+      )
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{softVersion,jdbcType=VARCHAR}, 
+      #{dbType,jdbcType=VARCHAR}, #{instance,jdbcType=VARCHAR}, #{host,jdbcType=VARCHAR}, 
+      #{port,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="priv.yulong.datasourse.model.Datasource">
     insert into DIC_DATASOURCE
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
       <if test="code != null">
         CODE,
       </if>
@@ -77,9 +73,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=CHAR},
-      </if>
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
@@ -112,9 +105,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="priv.yulong.datasourse.model.Datasource">
     update DIC_DATASOURCE
     <set>
-      <if test="code != null">
-        CODE = #{code,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
         NAME = #{name,jdbcType=VARCHAR},
       </if>
@@ -140,12 +130,11 @@
         USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=CHAR}
+    where CODE = #{code,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="priv.yulong.datasourse.model.Datasource">
     update DIC_DATASOURCE
-    set CODE = #{code,jdbcType=VARCHAR},
-      NAME = #{name,jdbcType=VARCHAR},
+    set NAME = #{name,jdbcType=VARCHAR},
       SOFT_VERSION = #{softVersion,jdbcType=VARCHAR},
       DB_TYPE = #{dbType,jdbcType=VARCHAR},
       INSTANCE = #{instance,jdbcType=VARCHAR},
@@ -153,6 +142,6 @@
       PORT = #{port,jdbcType=VARCHAR},
       USER_NAME = #{userName,jdbcType=VARCHAR},
       USER_PASSWORD = #{userPassword,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=CHAR}
+    where CODE = #{code,jdbcType=VARCHAR}
   </update>
 </mapper>

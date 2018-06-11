@@ -97,3 +97,32 @@
 .icon-login{
 	background:url('icons/login.png') no-repeat center center;
 }
+.icon-cog{
+	background:url('icons/cog.png') no-repeat center center;
+}
+.icon-user{
+	background:url('icons/user.png') no-repeat center center;
+}
+.icon-account{
+	background:url('icons/account.png') no-repeat center center;
+}
+.icon-book{
+	background:url('icons/book.png') no-repeat center center;
+}
+.icon-menu{
+	background:url('icons/menu.png') no-repeat center center;
+}
+.icon-role{
+	background:url('icons/role.png') no-repeat center center;
+}
+.icon-permission{
+	background:url('icons/permission.png') no-repeat center center;
+}
+.icon-interfase{
+	background:url('icons/interfase.png') no-repeat center center;
+}
+.icon-database{
+	background:url('icons/database.png') no-repeat center center;
+}
+
+

@@ -6,8 +6,8 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="status" jdbcType="CHAR" property="status" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
-    <result column="sex" jdbcType="CHAR" property="sex" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -41,10 +41,10 @@
 	        and nickname = #{nickname,jdbcType=VARCHAR}
 	      </if>
 	      <if test="status != null and status != ''">
-	        and status = #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+	        and status = #{status,jdbcType=CHAR}
 	      </if>
 	      <if test="sex != null and sex != ''">
-	        and sex = #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+	        and sex = #{sex,jdbcType=CHAR}
 	      </if>
 	      <if test="email != null and email != ''">
 	        and email = #{email,jdbcType=VARCHAR}
@@ -86,8 +86,8 @@
       modify_user, modify_date, THEME
       )
     values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
-      #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler}, #{email,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+      #{sex,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{modifyUser,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, #{theme,jdbcType=VARCHAR}
       )
@@ -149,10 +149,10 @@
         #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+        #{status,jdbcType=CHAR},
       </if>
       <if test="sex != null">
-        #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+        #{sex,jdbcType=CHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -190,10 +190,10 @@
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+        status = #{status,jdbcType=CHAR},
       </if>
       <if test="sex != null">
-        sex = #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+        sex = #{sex,jdbcType=CHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -224,8 +224,8 @@
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
-      status = #{status,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
-      sex = #{sex,jdbcType=CHAR, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+      status = #{status,jdbcType=CHAR},
+      sex = #{sex,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       create_user = #{createUser,jdbcType=VARCHAR},

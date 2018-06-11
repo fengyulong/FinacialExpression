@@ -1,7 +1,6 @@
 package priv.yulong.datafetch.controller;
 
 import java.io.IOException;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,14 +23,13 @@ public class TestLogController {
 	public void test(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		Datasource ds = new Datasource();
-		ds.setId(UUID.randomUUID().toString());
 		ds.setCode("test");
 		ds.setName("测试");
-		ds.setDbType("dbType");
+		//ds.setDbType("dbType");
 		ds.setHost("host");
 		ds.setInstance("instance");
 		ds.setPort("port");
-		ds.setSoftVersion("softVersion");
+		//ds.setSoftVersion("softVersion");
 		ds.setUserName("username");
 		ds.setUserPassword("password");
 		datasourceService.addDatasource(ds);

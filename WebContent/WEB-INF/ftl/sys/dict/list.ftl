@@ -12,15 +12,27 @@
 	<div class="easyui-layout">
 		<div data-options="region:'west',split:true " style="width:200px;">
 			<div id="tree_tb" class="easyui-panel" data-options="border:false">
+				<@shiro.hasPermission name = "sys:dict:add">
 				<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="add_tree()">新增</a>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name = "sys:dict:edit">
 				<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" onclick="edit_tree()">编辑</a>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name = "sys:dict:delete">
 				<a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="remove_tree()">删除</a>
+				</@shiro.hasPermission>
 			</div>
 			<ul id="dict_tree"></ul>
 			<div id="tree_menu" class="easyui-menu" style="width:120px;">
+				<@shiro.hasPermission name = "sys:dict:add">
 				<div onclick="add_tree()" data-options="iconCls:'icon-add'">添加</div>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name = "sys:dict:edit">
 				<div onclick="edit_tree()" data-options="iconCls:'icon-edit'">修改</div>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name = "sys:dict:delete">
 				<div onclick="remove_tree()" data-options="iconCls:'icon-remove'">删除 </div>
+				</@shiro.hasPermission>
 			</div>
 			<div id="dlg"></div>
 		</div>
@@ -97,13 +109,13 @@
 				dlg = $('#dlg').dialog({
 					width : 250,
 					height : 250,
-					href : '${path}/sys/dict/edit?parentId='+selectNode.id,
+					href : '${path}/sys/dict/add?parentId='+selectNode.id,
 					title: '新增字典类型',
 					modal: true,
 					buttons:[{
 						text:'保存',
 						handler:function(){
-							$('#edit_form').submit(); 
+							$('#add_form').submit(); 
 						}
 					},{
 						text:'取消',
@@ -181,13 +193,13 @@
 			dlg = $('#dlg').dialog({
 				width : 250,
 				height : 250,
-				href : '${path}/sys/dict/itemEdit?dictId='+selectNode.id,
+				href : '${path}/sys/dict/itemAdd?dictId='+selectNode.id,
 				title: '新增'+selectNode.text+'数据',
 				modal: true,
 				buttons:[{
 					text:'保存',
 					handler:function(){
-						$('#edit_form').submit(); 
+						$('#item_add_form').submit(); 
 					}
 				},{
 					text:'取消',
@@ -211,7 +223,7 @@
 					buttons:[{
 						text:'保存',
 						handler:function(){
-							$('#edit_form').submit(); 
+							$('#item_edit_form').submit(); 
 						}
 					},{
 						text:'取消',

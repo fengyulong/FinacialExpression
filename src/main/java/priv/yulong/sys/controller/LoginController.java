@@ -1,5 +1,7 @@
 package priv.yulong.sys.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.shiro.SecurityUtils;
@@ -13,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import priv.yulong.sys.model.Permission;
+import priv.yulong.sys.service.PermissionService;
 import priv.yulong.sys.service.UserService;
 
 @Controller
@@ -20,6 +24,8 @@ public class LoginController {
 
 	@Resource
 	private UserService userService;
+	@Resource
+	private PermissionService permissionService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String toLogin() {
@@ -47,10 +53,10 @@ public class LoginController {
 		} catch (IncorrectCredentialsException e) {
 			e.printStackTrace();
 			msg = e.getMessage();
-		}catch(UnauthenticatedException e){
+		} catch (UnauthenticatedException e) {
 			e.printStackTrace();
 			msg = e.getMessage();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			msg = e.getMessage();
 		}
@@ -67,7 +73,9 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/")
-	public String manager() {
+	public String manager(Model model) {
+		List<Permission> menuList = permissionService.getMenuTree();
+		model.addAttribute("menuList", menuList);
 		return "manager";
 	}
 

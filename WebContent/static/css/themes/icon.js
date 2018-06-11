@@ -9,7 +9,8 @@ function createIconList(combo){
 	         		'icon-filter', 'icon-man', 'icon-lock', 'icon-more', 'icon-mini-add',
 	         		'icon-mini-edit', 'icon-mini-refresh', 'icon-large-picture',
 	         		'icon-large-clipart', 'icon-large-shapes', 'icon-large-smartart',
-	         		'icon-large-chart', 'icon-login' ];
+	         		'icon-large-chart', 'icon-login','icon-cog','icon-user','icon-account',
+	         		'icon-menu','icon-role','icon-permission','icon-book','icon-interfase','icon-database'];
 	
 	var html = '<ul style="padding:10px;margin:0;">';
 	for(var i=0;i<iconList.length;i++){

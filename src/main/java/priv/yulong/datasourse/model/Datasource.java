@@ -1,103 +1,104 @@
 package priv.yulong.datasourse.model;
 
 public class Datasource {
-    private String id;
 
-    private String code;
+	public enum SoftVersion {
+		EBS
+	}
 
-    private String name;
+	public enum DbType {
+		MySql, SqlServer, Oracle
+	}
 
-    private String softVersion;
 
-    private String dbType;
+	private String code;
 
-    private String instance;
+	private String name;
 
-    private String host;
+	private SoftVersion softVersion;
 
-    private String port;
+	private DbType dbType;
 
-    private String userName;
+	private String instance;
 
-    private String userPassword;
+	private String host;
 
-    public String getId() {
-        return id;
-    }
+	private String port;
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	private String userName;
 
-    public String getCode() {
-        return code;
-    }
+	private String userPassword;
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
 
-    public String getName() {
-        return name;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setCode(String code) {
+		this.code = code == null ? null : code.trim();
+	}
 
-    public String getSoftVersion() {
-        return softVersion;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setSoftVersion(String softVersion) {
-        this.softVersion = softVersion == null ? null : softVersion.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public String getDbType() {
-        return dbType;
-    }
+	public SoftVersion getSoftVersion() {
+		return softVersion;
+	}
 
-    public void setDbType(String dbType) {
-        this.dbType = dbType == null ? null : dbType.trim();
-    }
+	public void setSoftVersion(SoftVersion softVersion) {
+		this.softVersion = softVersion;
+	}
 
-    public String getInstance() {
-        return instance;
-    }
+	public DbType getDbType() {
+		return dbType;
+	}
 
-    public void setInstance(String instance) {
-        this.instance = instance == null ? null : instance.trim();
-    }
+	public void setDbType(DbType dbType) {
+		this.dbType = dbType;
+	}
 
-    public String getHost() {
-        return host;
-    }
+	public String getInstance() {
+		return instance;
+	}
 
-    public void setHost(String host) {
-        this.host = host == null ? null : host.trim();
-    }
+	public void setInstance(String instance) {
+		this.instance = instance == null ? null : instance.trim();
+	}
 
-    public String getPort() {
-        return port;
-    }
+	public String getHost() {
+		return host;
+	}
 
-    public void setPort(String port) {
-        this.port = port == null ? null : port.trim();
-    }
+	public void setHost(String host) {
+		this.host = host == null ? null : host.trim();
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getPort() {
+		return port;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
+	public void setPort(String port) {
+		this.port = port == null ? null : port.trim();
+	}
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword == null ? null : userPassword.trim();
-    }
+	public void setUserName(String userName) {
+		this.userName = userName == null ? null : userName.trim();
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword == null ? null : userPassword.trim();
+	}
 }

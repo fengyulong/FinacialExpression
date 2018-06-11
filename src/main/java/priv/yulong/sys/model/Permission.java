@@ -1,6 +1,7 @@
 package priv.yulong.sys.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Permission {
 
@@ -14,17 +15,27 @@ public class Permission {
 
 	private String name;
 
-	private String type;
+	private PermissionType type;
 
 	private BigDecimal sort;
 
 	private String url;
 
-	private String buttonCode;
+	private String code;
 
 	private String icon;
 
 	private String remark;
+
+	private List<Permission> children;
+
+	public List<Permission> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Permission> children) {
+		this.children = children;
+	}
 
 	public String getId() {
 		return id;
@@ -50,12 +61,12 @@ public class Permission {
 		this.name = name == null ? null : name.trim();
 	}
 
-	public String getType() {
+	public PermissionType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type == null ? null : type.trim();
+	public void setType(PermissionType type) {
+		this.type = type;
 	}
 
 	public BigDecimal getSort() {
@@ -74,12 +85,12 @@ public class Permission {
 		this.url = url == null ? null : url.trim();
 	}
 
-	public String getButtonCode() {
-		return buttonCode;
+	public String getCode() {
+		return code;
 	}
 
-	public void setButtonCode(String buttonCode) {
-		this.buttonCode = buttonCode == null ? null : buttonCode.trim();
+	public void setCode(String code) {
+		this.code = code == null ? null : code.trim();
 	}
 
 	public String getIcon() {
@@ -96,5 +107,20 @@ public class Permission {
 
 	public void setRemark(String remark) {
 		this.remark = remark == null ? null : remark.trim();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Permission other = (Permission) obj;
+		if (this.id == null || other.getId() == null)
+			return false;
+		return this.id.equals(other.getId());
+
 	}
 }

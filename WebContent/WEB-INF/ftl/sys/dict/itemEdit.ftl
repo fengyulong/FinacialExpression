@@ -1,5 +1,5 @@
 <#assign path=request.contextPath />
-<form id="edit_form" action="${path}/sys/dict/itemEdit" method="post">
+<form id="item_edit_form" action="${path}/sys/dict/itemEdit" method="post">
 	<input type="hidden" name="dictId" value="${(dictItem.dictId)!}" />
 	<table style="width:100%;padding:10px;">
     	<tr>
@@ -17,7 +17,7 @@
 	</table>
 </form>
 <script type="text/javascript">
-	$('#edit_form').form({
+	$('#item_edit_form').form({
 		onSubmit: function(){    
 	    	var isValid = $(this).form('validate');
 			return isValid;	// 返回false终止表单提交
@@ -28,7 +28,7 @@
 				dlg.panel('close');
 				parent.$.messager.show({ title : "提示",msg: "操作成功！"});
 			}else{
-				parent.$.messager.alert(data);
+				parent.$.messager.alert({ title : "错误",msg: data});
 				return false;
 			}
 		}	

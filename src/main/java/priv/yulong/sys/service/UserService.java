@@ -3,6 +3,7 @@ package priv.yulong.sys.service;
 import java.util.List;
 
 import priv.yulong.sys.model.User;
+import priv.yulong.sys.model.UserRole;
 
 public interface UserService {
 
@@ -44,4 +45,8 @@ public interface UserService {
 	void deleteUser(String id);
 
 	List<User> getUser(User user);
+	
+	List<UserRole> getUserRoleList(String userId);
+	
+	void addUserRole(String userId,List<String> roleIds);
 }

@@ -23,4 +23,14 @@ public interface PermissionMapper {
     List<Permission> selectAll();
     
     List<Permission> selectByType(String type);
+    
+    List<Permission> selectPermissionTree();
+    
+    Permission selectPermissionTreeById(String id);
+    
+    List<Permission> selectMenuTree();
+    
+    List<Permission> selectPermissionsByRoleId(String roleId);
+    
+    List<Permission> selectPermissionsByUserId(String userId);
 }

@@ -50,4 +50,41 @@ public class PermissionServiceImpl implements PermissionService {
 		return permissionMapper.selectByType(type);
 	}
 
+	@Override
+	public List<Permission> getPermissionTree() {
+		return permissionMapper.selectPermissionTree();
+	}
+
+	@Override
+	public List<Permission> getMenuTree() {
+		return permissionMapper.selectMenuTree();
+	}
+
+	@Override
+	public Permission getPermissionTreeById(String id) {
+		return permissionMapper.selectPermissionTreeById(id);
+	}
+
+	@Override
+	public void deleteCascade(Permission permission) {
+		List<Permission> children = permission.getChildren();
+		if (children != null && !children.isEmpty()) {
+			for (Permission p : children) {
+				deleteCascade(p);
+			}
+		}
+		delete(permission.getId());
+
+	}
+
+	@Override
+	public List<Permission> getPermissionsByRoleId(String roleId) {
+		return permissionMapper.selectPermissionsByRoleId(roleId);
+	}
+
+	@Override
+	public List<Permission> getPermissionsByUserId(String userId) {
+		return permissionMapper.selectPermissionsByUserId(userId);
+	}
+
 }

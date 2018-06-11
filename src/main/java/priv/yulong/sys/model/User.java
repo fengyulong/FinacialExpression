@@ -1,11 +1,22 @@
 package priv.yulong.sys.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import priv.yulong.enumeration.Sex;
-import priv.yulong.enumeration.UserStatus;
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-public class User {
+	enum SEX {
+		M // 男
+		, F // 女
+	}
+
+	enum STATUS {
+		E // 正常
+		, D // 禁用
+		, L // 锁定
+	}
+
 	private String id;
 
 	private String username;
@@ -14,9 +25,9 @@ public class User {
 
 	private String nickname;
 
-	private UserStatus status;
+	private STATUS status;
 
-	private Sex sex;
+	private SEX sex;
 
 	private String email;
 
@@ -64,19 +75,19 @@ public class User {
 		this.nickname = nickname == null ? null : nickname.trim();
 	}
 
-	public UserStatus getStatus() {
+	public STATUS getStatus() {
 		return status;
 	}
 
-	public void setStatus(UserStatus status) {
+	public void setStatus(STATUS status) {
 		this.status = status;
 	}
 
-	public Sex getSex() {
+	public SEX getSex() {
 		return sex;
 	}
 
-	public void setSex(Sex sex) {
+	public void setSex(SEX sex) {
 		this.sex = sex;
 	}
 

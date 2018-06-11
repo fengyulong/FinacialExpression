@@ -16,18 +16,19 @@
 		ID, TEXT, PARENT_ID, REMARK, IS_LEAF
 	</sql>
 	
-	<select id="selectSubDict" parameterType="java.lang.String" resultMap="treeResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from SYS_DICT
-		where PARENT_ID = #{id,jdbcType=VARCHAR}
-	</select>
 	
 	<select id="selectDictTree" parameterType="java.lang.String" resultMap="treeResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from SYS_DICT
 		where PARENT_ID is null
+	</select>
+	
+	<select id="selectSubDict" parameterType="java.lang.String" resultMap="treeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_DICT
+		where PARENT_ID = #{id,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

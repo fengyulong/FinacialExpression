@@ -12,9 +12,18 @@
 	<div id="dlg"></div>
 	<div id="tb" style="padding:5px">
 		<div>
+			<@shiro.hasPermission name = "sys:user:add">
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="add()">新增</a>
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name = "sys:user:edit">
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="edit()" >编辑</a>
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name = "sys:user:delete">
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="del()">删除</a>
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name = "sys:user:role">
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-role',plain:true" onclick="role()">角色</a>
+			</@shiro.hasPermission>
 		</div>
 		<div>
 			<form id="searchFrom">
@@ -28,42 +37,40 @@
 	<script type="text/javascript" src="${path}/static/js/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="${path}/static/js/easyui/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript">
-	var d,dg,user_sex_json;
-	function userSexFormatter(value){
-		if(typeof(user_sex_json) == 'undefined'){
-			$.ajax({
-				type : 'get',
-				async: false,
-				url : '${path}/sys/dict/itemQuery?dictId=USER_SEX',
-				success : function(data){
-					user_sex_json = data;	
-				}
-			});
-		}
-		for(i=0;i<user_sex_json.length;i++){
-			if(user_sex_json[i].value == value){
-				return user_sex_json[i].text ;
-			}
-		}
-		return '';
-	}
+	var d,dg,role_table;
+	
+	
 	$(function() {
 		dg = $('#user_table').datagrid({
 			url : '/expression/sys/user/query',
 			pagination : true,
 			singleSelect:true,
-			pageSize : 5,
-			pageList : [ 5, 10 ],
+			pageSize : 10,
+			pageList : [ 10, 20 , 30],
 			rownumbers : true,
 			striped : true,
 			columns : [ [ 
 			{field : 'id',hidden : true,},
 			{field : 'username',title : ' 用户名',width : 100,sortable : true,},
 			{field : 'nickname',title : ' 昵称',width : 100,sortable : true,}, 
-			{field : 'password',title : ' 密码',width : 100,sortable : true,},
+			{field : 'status',title : '状态',width : 100,sortable : true,formatter : function(value,row,index){
+				if(value == 'E'){
+					return '正常';
+				}else if(value == 'D'){
+					return '禁用';
+				}else if(value == 'L'){
+					return '锁定';
+				}
+			}},
 			{field : 'email',title : ' 邮箱',width : 100,sortable : true,},
 			{field : 'mobile',title : ' 手机号',width : 100,sortable : true,},
-			{field : 'sex',title : ' 性别',width : 100,sortable : true,formatter : function(value,row,index){return userSexFormatter(value)}} 
+			{field : 'sex',title : ' 性别',width : 100,sortable : true,formatter : function(value,row,index){
+				if(value == 'M'){
+					return '男';
+				}else if(value == 'F'){
+					return '女';
+				}
+			}} 
 			] ],
 			toolbar : '#tb'
 		});
@@ -74,13 +81,13 @@
 		d = $('#dlg').dialog({
 			width : 500,
 			height : 300,
-			href : '${path}/sys/user/edit',
+			href : '${path}/sys/user/add',
 			title: '新增用户',
 			modal: true,
 			buttons:[{
 				text:'保存',
 				handler:function(){
-					$('#edit_form').submit(); 
+					$('#add_form').submit(); 
 				}
 			},{
 				text:'取消',
@@ -113,7 +120,7 @@
 				}]
 			});
 		}else{
-			parent.$.messager.show({ title : "提示",msg: "请选择行数据！" });
+			parent.$.messager.alert({ title : "提示",msg: "请选要编辑的数据！" });
 		}
 	}
 	
@@ -138,13 +145,9 @@
 				}
 			})
 		}else{
-			parent.$.messager.show({ title : "提示",msg: "请选择行数据！" });
+			parent.$.messager.alert({ title : "提示",msg: "请选要删除的数据！" });
 		}
 	}
-	
-	
-	
-   
 	function query(){
 		var obj= {};
 		 $.each($("#searchFrom").serializeArray(),function(index){
@@ -155,6 +158,57 @@
            	}
 		 });
 		dg.datagrid('load',obj);
+	}
+	
+	function role(){
+		var row = dg.datagrid('getSelected');
+		if(row){
+			d = $('#dlg').dialog({
+				width : 500,
+				height : 260,
+				href : '${path}/sys/user/role?userId='+row.id,
+				title: '设置角色',
+				modal: true,
+				buttons:[{
+					text:'保存',
+					handler:function(){
+						submitRole(role_table,row.id);						
+					}
+				},{
+					text:'取消',
+					handler:function(){
+							d.panel('close');
+						}
+				}]
+			});
+		}else{
+			parent.$.messager.alert({ title : "提示",msg: "请选择要设置角色的数据！" });
+		}
+	}
+	
+	function submitRole(roleTable,userId){
+		var roles = roleTable.datagrid('getChecked');
+		var roleIds = '';
+		for(var i=0;i<roles.length;i++){
+			if(i == 0){
+				roleIds += roles[i].id;
+			}else{
+				roleIds += ',' + roles[i].id;
+			}
+		}
+		$.ajax({
+			type : 'post',
+			url : '${path}/sys/user/role',
+			data : {"list" : roleIds,"userId" : userId},
+			success :  function(data){
+				if(data == 'success'){
+					parent.$.messager.show({ title : "提示",msg: "操作成功！"});
+					d.panel('close');
+				}else{
+					parent.$.messager.alert(data);
+				}	
+			}
+		});
 	}
 	</script>
 </body>

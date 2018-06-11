@@ -1,22 +1,25 @@
 package priv.yulong.datasourse.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import priv.yulong.datasourse.model.Datasource;
 
 @Mapper
 public interface DatasourceMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(Datasource record);
+	List<Datasource> selectAll();
 
-    int insertSelective(Datasource record);
+	int deleteByPrimaryKey(String code);
 
-    Datasource selectByPrimaryKey(String id);
-    
-    Datasource selectByDatasourceCode(String code);
+	int insert(Datasource record);
 
-    int updateByPrimaryKeySelective(Datasource record);
+	int insertSelective(Datasource record);
 
-    int updateByPrimaryKey(Datasource record);
+	Datasource selectByPrimaryKey(String code);
+
+	int updateByPrimaryKeySelective(Datasource record);
+
+	int updateByPrimaryKey(Datasource record);
 }

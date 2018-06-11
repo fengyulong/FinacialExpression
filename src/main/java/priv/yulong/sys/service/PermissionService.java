@@ -18,5 +18,17 @@ public interface PermissionService {
 	List<Permission> getAll();
 	
 	List<Permission> getByType(String type);
+	
+	List<Permission> getPermissionTree();
+	
+	Permission getPermissionTreeById(String id);
+	
+	List<Permission> getMenuTree();
+	
+	void deleteCascade(Permission permission);
+	
+	List<Permission> getPermissionsByRoleId(String roleId);
+	
+	List<Permission> getPermissionsByUserId(String userId);
 
 }

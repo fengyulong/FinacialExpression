@@ -1,5 +1,7 @@
 package priv.yulong.datasourse.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,9 +22,9 @@ public class DatasourceServiceImpl implements DatasourceService {
 	private DatasourceMapper datasourceMapper;
 
 	@Override
-	@Cacheable(value = "datasource", key = "#datasourceCode")
-	public Datasource getDataSource(String datasourceCode) {
-		return datasourceMapper.selectByDatasourceCode(datasourceCode);
+	@Cacheable(value = "datasource", key = "#code")
+	public Datasource getDataSource(String code) {
+		return datasourceMapper.selectByPrimaryKey(code);
 	}
 
 	@Override
@@ -42,7 +44,12 @@ public class DatasourceServiceImpl implements DatasourceService {
 	@Override
 	@CacheEvict(value = "datasource", key = "#datasource.code")
 	public void deleteDatasource(Datasource datasource) {
-		datasourceMapper.deleteByPrimaryKey(datasource.getId());
+		datasourceMapper.deleteByPrimaryKey(datasource.getCode());
+	}
+
+	@Override
+	public List<Datasource> getAll() {
+		return datasourceMapper.selectAll();
 	}
 
 }

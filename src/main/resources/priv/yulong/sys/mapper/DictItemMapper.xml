@@ -28,6 +28,10 @@
     where DICT_ID = #{dictId,jdbcType=VARCHAR}
       and VALUE = #{value,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteItems" parameterType="java.lang.String">
+    delete from SYS_DICT_ITEM
+    where DICT_ID = #{dictId,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="priv.yulong.sys.model.DictItem">
     insert into SYS_DICT_ITEM (DICT_ID, VALUE, TEXT, 
       REMARK)

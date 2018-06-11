@@ -15,19 +15,20 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="userAuthorizingRealm" />
 		<property name="cacheManager" ref="shiroCacheManager" />
+		<property name="sessionManager" ref="sessionManager"/>
 	</bean>
 
 	<bean id="userAuthorizingRealm" class="priv.yulong.sys.security.UserAuthorizingRealm">
 		<property name="credentialsMatcher">
-            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-                <property name="hashAlgorithmName" value="MD5"/>
-                <property name="hashIterations" value="3" />
-                <property name="hashSalted" value="true" />
-            </bean>
-        </property>
+			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<property name="hashAlgorithmName" value="MD5" />
+				<property name="hashIterations" value="3" />
+				<property name="hashSalted" value="true" />
+			</bean>
+		</property>
 	</bean>
 
-	
+
 
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -42,7 +43,7 @@
 			</value>
 		</property>
 	</bean>
-	
+
 	<!-- 用户授权信息Cache, 采用EhCache -->
 	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<property name="cacheManager" ref="ehcache" />
@@ -51,11 +52,8 @@
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-	<!-- AOP式方法级权限检查 -->
-	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
-		<property name="proxyTargetClass" value="true" />
-	</bean>
-	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- 设置超时时间 -->
+		<property name="globalSessionTimeout" value="1800000" />
 	</bean>
 </beans>

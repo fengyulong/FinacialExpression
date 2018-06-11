@@ -8,14 +8,6 @@
 			<td>昵称:</td>
 			<td><input class="easyui-textbox" type="text" name="nickname" data-options="required:true" value="${(user.nickname)!}" /></td>
 		</tr>
-		<#if !user??>
-		<tr>
-			<td>密码:</td>
-			<td><input class="easyui-textbox" type="password" name="password" data-options="required:true" /></td>
-			<td>重复密码:</td>
-			<td><input class="easyui-textbox" type="password" name="repeat_password" data-options="required:true" /></td>
-		</tr>
-		</#if>
 		<tr>
 			<td>邮箱:</td>
 			<td><input class="easyui-textbox" type="text" name="email" data-options="required:true,validType:'email'"  value="${(user.email)!}" /></td>
@@ -25,10 +17,12 @@
 		<tr>
 			<td>性别:</td>
 			<td>
-				<input class="easyui-combobox" name="sex"  value="${(user.sex)!}" data-options="valueField:'value',textField:'text',method:'get',url:'${path}/sys/dict/itemQuery?dictId=USER_SEX'" />
+				<input class="easyui-combobox" name="sex"  value="${(user.sex)!}" data-options="valueField:'value',textField:'text',data:[{value:'M',text:'男'},{value:'F',text:'女'}]" />
 			</td>
 			<td>状态:</td>
-			<td><input class="easyui-textbox" type="text" name="state" data-options="required:true"  value="${(user.state)!}" /></td>
+			<td>
+				<input class="easyui-combobox" name="status"  value="${(user.status)!'E'}" data-options="valueField:'value',textField:'text',data:[{value:'E',text:'正常'},{value:'D',text:'禁用'},{value:'L',text:'锁定'}]" />
+			</td>
 		</tr>
 	</table>
 </form>
@@ -44,7 +38,7 @@
 				d.panel('close');
 				parent.$.messager.show({ title : "提示",msg: "操作成功！"});
 			}else{
-				parent.$.messager.alert(data);
+				parent.$.messager.alert({ title : "错误",msg: data});
 				return false;
 			}
 		}	

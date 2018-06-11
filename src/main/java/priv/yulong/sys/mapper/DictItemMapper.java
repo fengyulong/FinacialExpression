@@ -22,4 +22,6 @@ public interface DictItemMapper {
     int updateByPrimaryKey(DictItem record);
     
     List<DictItem> selectItems(String dictId);
+    
+    int deleteItems(String dictId);
 }

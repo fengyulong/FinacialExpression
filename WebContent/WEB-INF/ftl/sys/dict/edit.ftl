@@ -4,7 +4,7 @@
 	<table style="width:100%;padding:10px;">
     	<tr>
 			<td>代码:</td>
-			<td><input class="easyui-textbox" type="text" name="id" data-options="required:true,validType:'syscode',invalidMessage:'只能输入字母、数字或下划线'" <#if (dict.id)??>readonly="readonly"</#if> value="${(dict.id)!}" /></td>
+			<td><input class="easyui-textbox" type="text" name="id" data-options="required:true,validType:'syscode', editable:false,invalidMessage:'只能输入字母、数字或下划线'" value="${(dict.id)!}" /></td>
 		</tr>
 		<tr>
 			<td>名称:</td>
@@ -25,24 +25,13 @@
 		success : function(data){
 			if(data == 'success'){
 				dlg.panel('close');
-				<#if !(dict.id)??>
-				dictTree.tree('append',{
-					parent:selectNode.target,
-					data:[{
-						id : $('input[name="id"]').val(),
-						text : $('input[name="text"]').val()
-					}]
-				});
-				</#if>
-				<#if (dict.id)??>
 				dictTree.tree('update',{
 					target: selectNode.target,
 					text : $('input[name="text"]').val()
 				});
-				</#if>
 				parent.$.messager.show({ title : "提示",msg: "操作成功！"});
 			}else{
-				parent.$.messager.alert(data);
+				parent.$.messager.alert({ title : "错误",msg: data});
 				return false;
 			}
 		}	

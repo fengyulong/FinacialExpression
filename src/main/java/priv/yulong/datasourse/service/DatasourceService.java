@@ -1,5 +1,7 @@
 package priv.yulong.datasourse.service;
 
+import java.util.List;
+
 import priv.yulong.datasourse.model.Datasource;
 
 public interface DatasourceService {
@@ -32,5 +34,11 @@ public interface DatasourceService {
 	 * @param datasource
 	 */
 	void deleteDatasource(Datasource datasource);
+	
+	/**
+	 * 获取所有数据源
+	 * @return
+	 */
+	List<Datasource> getAll();
 
 }

@@ -1,5 +1,5 @@
 <#assign path=request.contextPath />
-<form id="edit_form" action="${path}/sys/permission/edit" method="post">
+<form id="edit_menu_form" action="${path}/sys/permission/edit" method="post">
 	<input type="hidden" name="id" value="${(permission.id)!}"/>
 	<input type="hidden" name="type" value="${(permission.type)!}"/>
 	<table style="width:100%;padding:10px;">
@@ -10,6 +10,10 @@
 		<tr>
 			<td>菜单图标:</td>
 			<td><input id="icon_selector" type="text" name="icon"  value="${(permission.icon)!}" /></td>
+		</tr>
+		<tr>
+			<td>权限代码:</td>
+			<td><input class="easyui-textbox" type="text" name="code" data-options="required:true"  value="${(permission.code)!}" /></td>
 		</tr>
 		<tr>
 			<td>资源路径:</td>
@@ -32,7 +36,7 @@
 </form>
 <script type="text/javascript">
 $(function(){
-	$('#edit_form').form({
+	$('#edit_menu_form').form({
 		onSubmit: function(){    
 	    	var isValid = $(this).form('validate');
 			return isValid;	// 返回false终止表单提交

@@ -1,150 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="priv.yulong.sys.mapper.PermissionMapper">
-  <resultMap id="BaseResultMap" type="priv.yulong.sys.model.Permission">
-    <id column="ID" jdbcType="VARCHAR" property="id" />
-    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="TYPE" jdbcType="VARCHAR" property="type" />
-    <result column="SORT" jdbcType="DECIMAL" property="sort" />
-    <result column="URL" jdbcType="VARCHAR" property="url" />
-    <result column="BUTTON_CODE" jdbcType="VARCHAR" property="buttonCode" />
-    <result column="ICON" jdbcType="VARCHAR" property="icon" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    ID, PARENT_ID, NAME, TYPE, SORT, URL, BUTTON_CODE, ICON, REMARK
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from SYS_PERMISSION
-    where ID = #{id,jdbcType=VARCHAR}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from SYS_PERMISSION
-  </select>
-  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select 
-    <include refid="Base_Column_List" />
-    from SYS_PERMISSION
-    where TYPE = #{type,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from SYS_PERMISSION
-    where ID = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="priv.yulong.sys.model.Permission">
-    insert into SYS_PERMISSION (ID, PARENT_ID, NAME, 
-      TYPE, SORT, URL, BUTTON_CODE, 
-      ICON, REMARK)
-    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, #{url,jdbcType=VARCHAR}, #{buttonCode,jdbcType=VARCHAR}, 
-      #{icon,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="priv.yulong.sys.model.Permission">
-    insert into SYS_PERMISSION
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
-      <if test="parentId != null">
-        PARENT_ID,
-      </if>
-      <if test="name != null">
-        NAME,
-      </if>
-      <if test="type != null">
-        TYPE,
-      </if>
-      <if test="sort != null">
-        SORT,
-      </if>
-      <if test="url != null">
-        URL,
-      </if>
-      <if test="buttonCode != null">
-        BUTTON_CODE,
-      </if>
-      <if test="icon != null">
-        ICON,
-      </if>
-      <if test="remark != null">
-        REMARK,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        #{sort,jdbcType=DECIMAL},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="buttonCode != null">
-        #{buttonCode,jdbcType=VARCHAR},
-      </if>
-      <if test="icon != null">
-        #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="priv.yulong.sys.model.Permission">
-    update SYS_PERMISSION
-    <set>
-      <if test="parentId != null">
-        PARENT_ID = #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        TYPE = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        SORT = #{sort,jdbcType=DECIMAL},
-      </if>
-      <if test="url != null">
-        URL = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="buttonCode != null">
-        BUTTON_CODE = #{buttonCode,jdbcType=VARCHAR},
-      </if>
-      <if test="icon != null">
-        ICON = #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        REMARK = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="priv.yulong.sys.model.Permission">
-    update SYS_PERMISSION
-    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
-      NAME = #{name,jdbcType=VARCHAR},
-      TYPE = #{type,jdbcType=VARCHAR},
-      SORT = #{sort,jdbcType=DECIMAL},
-      URL = #{url,jdbcType=VARCHAR},
-      BUTTON_CODE = #{buttonCode,jdbcType=VARCHAR},
-      ICON = #{icon,jdbcType=VARCHAR},
-      REMARK = #{remark,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
+	<resultMap id="BaseResultMap" type="priv.yulong.sys.model.Permission">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="TYPE" jdbcType="VARCHAR" property="type" />
+		<result column="SORT" jdbcType="DECIMAL" property="sort" />
+		<result column="URL" jdbcType="VARCHAR" property="url" />
+		<result column="CODE" jdbcType="VARCHAR" property="code" />
+		<result column="ICON" jdbcType="VARCHAR" property="icon" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	<resultMap id="permissionTreeResultMap" type="priv.yulong.sys.model.Permission" extends="BaseResultMap">
+		<collection property="children" javaType="java.util.ArrayList" column="id" ofType="priv.yulong.sys.model.Permission"
+			select="selectSubPermission"></collection>
+	</resultMap>
+	<resultMap id="menuTreeResultMap" type="priv.yulong.sys.model.Permission" extends="BaseResultMap">
+		<collection property="children" javaType="java.util.ArrayList" column="id" ofType="priv.yulong.sys.model.Permission"
+			select="selectSubMenu"></collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, PARENT_ID, NAME, TYPE, SORT, URL, CODE, ICON, REMARK
+	</sql>
+	<select id="selectSubPermission" parameterType="java.lang.String" resultMap="permissionTreeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+		where PARENT_ID = #{id,jdbcType=VARCHAR} order by sort
+	</select>
+	<select id="selectPermissionsByUserId" parameterType="java.lang.String"  resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_permission
+		where id in
+		       (select permission_id from sys_role_permission where role_id in (select role_id
+		                                                                     from sys_user_role
+		                                                                    where user_id = #{userId,jdbcType=VARCHAR}))
+	</select>
+	<select id="selectSubMenu" parameterType="java.lang.String" resultMap="menuTreeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+		where PARENT_ID = #{id,jdbcType=VARCHAR} and type != 'BUTTON' order by sort
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectPermissionTree" resultMap="permissionTreeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+		where PARENT_ID is null order by sort
+	</select>
+	<select id="selectPermissionTreeById" parameterType="java.lang.String" resultMap="permissionTreeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+		where ID = #{id,jdbcType=VARCHAR} order by sort
+	</select>
+	<select id="selectMenuTree" resultMap="menuTreeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+		where PARENT_ID is null order by sort
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+	</select>
+	<select id="selectByType" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_PERMISSION
+		where TYPE = #{type,jdbcType=VARCHAR} order by sort
+	</select>
+	<select id="selectPermissionsByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		select t1.*
+		  from sys_permission t1, sys_role_permission t2
+		 where t1.id = t2.permission_id
+		   and t2.role_id = #{roleId,jdbcType=VARCHAR} order by t1.sort
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from SYS_PERMISSION
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="priv.yulong.sys.model.Permission">
+		insert into SYS_PERMISSION (ID, PARENT_ID, NAME,
+		TYPE, SORT, URL, CODE,
+		ICON, REMARK)
+		values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, #{url,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+		#{icon,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="priv.yulong.sys.model.Permission">
+		insert into SYS_PERMISSION
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="sort != null">
+				SORT,
+			</if>
+			<if test="url != null">
+				URL,
+			</if>
+			<if test="code != null">
+				CODE,
+			</if>
+			<if test="icon != null">
+				ICON,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=DECIMAL},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="priv.yulong.sys.model.Permission">
+		update SYS_PERMISSION
+		<set>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				SORT = #{sort,jdbcType=DECIMAL},
+			</if>
+			<if test="url != null">
+				URL = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				CODE = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				ICON = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="priv.yulong.sys.model.Permission">
+		update SYS_PERMISSION
+		set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		TYPE = #{type,jdbcType=VARCHAR},
+		SORT = #{sort,jdbcType=DECIMAL},
+		URL =
+		#{url,jdbcType=VARCHAR},
+		CODE = #{code,jdbcType=VARCHAR},
+		ICON = #{icon,jdbcType=VARCHAR},
+		REMARK =
+		#{remark,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
 </mapper>
