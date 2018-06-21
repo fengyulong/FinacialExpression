@@ -21,6 +21,13 @@ $.extend($.fn.validatebox.defaults.rules, {
     		return reg.test(value);
     	},
     	message:'只能输入数字、字母、下划线'
+    },
+    ip:{
+    	validator: function (value) {
+    		var reg = /^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+    		return reg.test(value);
+    	},
+    	message:'您输入的ip不正确'
     }
     
 }); 

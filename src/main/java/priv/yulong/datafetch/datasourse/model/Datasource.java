@@ -1,4 +1,4 @@
-package priv.yulong.datasourse.model;
+package priv.yulong.datafetch.datasourse.model;
 
 public class Datasource {
 
@@ -7,9 +7,61 @@ public class Datasource {
 	}
 
 	public enum DbType {
-		MySql, SqlServer, Oracle
-	}
+		MySql("com.mysql.jdbc.Driver", "jdbc:mysql://%1$s:%2$d/%3$s", 3306, "select x"),
 
+		SqlServer("com.microsoft.sqlserver.jdbc.SQLServerDriver", "jdbc:sqlserver://%1$s:%2$d;DatabaseName=%3$s", 1433,
+				"select 1"),
+
+		Oracle("oracle.jdbc.driver.OracleDriver", "jdbc:oracle:thin:@%1$s:%2$d:%3$s", 1521, "select 1 from dual");
+
+		private final String driverName;
+		private final String urlFormat;
+		private final int defaultPort;
+		private final String validationQuery;
+
+		/**
+		 * 构造函数
+		 * 
+		 * @param description
+		 * @param driverName
+		 * @param urlFormat
+		 */
+		DbType(String driverName, String urlFormat, int defaultPort, String validationQuery) {
+			this.driverName = driverName;
+			this.urlFormat = urlFormat;
+			this.defaultPort = defaultPort;
+			this.validationQuery = validationQuery;
+		}
+
+		/**
+		 * 根据参数构建数据库连接URL
+		 * 
+		 * @param server
+		 * @param port
+		 * @param dbname
+		 * @return
+		 */
+		public String buildURL(String host, int port, String instance) {
+			return String.format(urlFormat, host, port, instance);
+		}
+
+		public String getDriverName() {
+			return driverName;
+		}
+
+		public String getUrlFormat() {
+			return urlFormat;
+		}
+
+		public int getDefaultPort() {
+			return defaultPort;
+		}
+
+		public String getValidationQuery() {
+			return validationQuery;
+		}
+
+	}
 
 	private String code;
 
@@ -23,12 +75,11 @@ public class Datasource {
 
 	private String host;
 
-	private String port;
+	private int port;
 
 	private String userName;
 
 	private String userPassword;
-
 
 	public String getCode() {
 		return code;
@@ -78,12 +129,12 @@ public class Datasource {
 		this.host = host == null ? null : host.trim();
 	}
 
-	public String getPort() {
+	public int getPort() {
 		return port;
 	}
 
-	public void setPort(String port) {
-		this.port = port == null ? null : port.trim();
+	public void setPort(int port) {
+		this.port = port;
 	}
 
 	public String getUserName() {
@@ -100,5 +151,9 @@ public class Datasource {
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword == null ? null : userPassword.trim();
+	}
+
+	public String getUrl() {
+		return dbType.buildURL(host, port, instance);
 	}
 }

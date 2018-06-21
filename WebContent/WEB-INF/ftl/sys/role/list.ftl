@@ -36,8 +36,9 @@
 			url : '${path}/sys/role/query',
 			pagination : true,
 			singleSelect:true,
-			pageSize : 5,
-			pageList : [ 5, 10 ],
+			pageSize : 10,
+			fit : true,
+			pageList : [ 10, 20 ,30 ],
 			rownumbers : true,
 			striped : true,
 			columns : [ [ 

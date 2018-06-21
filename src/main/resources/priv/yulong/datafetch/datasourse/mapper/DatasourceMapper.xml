@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="priv.yulong.datasourse.mapper.DatasourceMapper">
-  <resultMap id="BaseResultMap" type="priv.yulong.datasourse.model.Datasource">
+<mapper namespace="priv.yulong.datafetch.datasourse.mapper.DatasourceMapper">
+  <resultMap id="BaseResultMap" type="priv.yulong.datafetch.datasourse.model.Datasource">
     <id column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="SOFT_VERSION" jdbcType="VARCHAR" property="softVersion" />
     <result column="DB_TYPE" jdbcType="VARCHAR" property="dbType" />
     <result column="INSTANCE" jdbcType="VARCHAR" property="instance" />
     <result column="HOST" jdbcType="VARCHAR" property="host" />
-    <result column="PORT" jdbcType="VARCHAR" property="port" />
+    <result column="PORT" jdbcType="INTEGER" property="port" />
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
   </resultMap>
@@ -31,17 +31,17 @@
     delete from DIC_DATASOURCE
     where CODE = #{code,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="priv.yulong.datasourse.model.Datasource">
+  <insert id="insert" parameterType="priv.yulong.datafetch.datasourse.model.Datasource">
     insert into DIC_DATASOURCE (CODE, NAME, SOFT_VERSION, 
       DB_TYPE, INSTANCE, HOST, 
       PORT, USER_NAME, USER_PASSWORD
       )
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{softVersion,jdbcType=VARCHAR}, 
       #{dbType,jdbcType=VARCHAR}, #{instance,jdbcType=VARCHAR}, #{host,jdbcType=VARCHAR}, 
-      #{port,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
+      #{port,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="priv.yulong.datasourse.model.Datasource">
+  <insert id="insertSelective" parameterType="priv.yulong.datafetch.datasourse.model.Datasource">
     insert into DIC_DATASOURCE
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="code != null">
@@ -92,7 +92,7 @@
         #{host,jdbcType=VARCHAR},
       </if>
       <if test="port != null">
-        #{port,jdbcType=VARCHAR},
+        #{port,jdbcType=INTEGER},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -102,7 +102,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="priv.yulong.datasourse.model.Datasource">
+  <update id="updateByPrimaryKeySelective" parameterType="priv.yulong.datafetch.datasourse.model.Datasource">
     update DIC_DATASOURCE
     <set>
       <if test="name != null">
@@ -121,7 +121,7 @@
         HOST = #{host,jdbcType=VARCHAR},
       </if>
       <if test="port != null">
-        PORT = #{port,jdbcType=VARCHAR},
+        PORT = #{port,jdbcType=INTEGER},
       </if>
       <if test="userName != null">
         USER_NAME = #{userName,jdbcType=VARCHAR},
@@ -132,14 +132,14 @@
     </set>
     where CODE = #{code,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="priv.yulong.datasourse.model.Datasource">
+  <update id="updateByPrimaryKey" parameterType="priv.yulong.datafetch.datasourse.model.Datasource">
     update DIC_DATASOURCE
     set NAME = #{name,jdbcType=VARCHAR},
       SOFT_VERSION = #{softVersion,jdbcType=VARCHAR},
       DB_TYPE = #{dbType,jdbcType=VARCHAR},
       INSTANCE = #{instance,jdbcType=VARCHAR},
       HOST = #{host,jdbcType=VARCHAR},
-      PORT = #{port,jdbcType=VARCHAR},
+      PORT = #{port,jdbcType=INTEGER},
       USER_NAME = #{userName,jdbcType=VARCHAR},
       USER_PASSWORD = #{userPassword,jdbcType=VARCHAR}
     where CODE = #{code,jdbcType=VARCHAR}

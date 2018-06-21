@@ -1,4 +1,4 @@
-package priv.yulong.datasourse.controller;
+package priv.yulong.datafetch.datasourse.controller;
 
 import java.util.List;
 
@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 
 import priv.yulong.common.model.DataGridModel;
-import priv.yulong.datasourse.model.Datasource;
-import priv.yulong.datasourse.service.DatasourceService;
+import priv.yulong.common.util.DbUtil;
+import priv.yulong.datafetch.datasourse.model.Datasource;
+import priv.yulong.datafetch.datasourse.service.DatasourceService;
 
 @Controller
-@RequestMapping(value = "/datasource")
+@RequestMapping(value = "/datafetch/datasource")
 public class DatasourceController {
 
 	@Resource
@@ -28,20 +29,27 @@ public class DatasourceController {
 	 * 
 	 * @return
 	 */
-	@RequiresPermissions(value = { "datasource:list" })
+	@RequiresPermissions(value = { "datafetch:datasource:list" })
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list() {
-		return "datasource/list";
+		return "datafetch/datasource/list";
 	}
 
 	@ResponseBody
-	@RequiresPermissions(value = { "datasource:list" })
+	@RequiresPermissions(value = { "datafetch:datasource:list" })
 	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String list(String sort, String order) {
 		List<Datasource> datasourceList = datasourceService.getAll();
 		DataGridModel<Datasource> grid = new DataGridModel<Datasource>();
 		grid.setRows(datasourceList);
 		return JSON.toJSONString(grid);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/combolist", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String combolist() {
+		List<Datasource> datasourceList = datasourceService.getAll();
+		return JSON.toJSONString(datasourceList);
 	}
 
 	/**
@@ -51,7 +59,7 @@ public class DatasourceController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequiresPermissions(value = { "datasource:add" })
+	@RequiresPermissions(value = { "datafetch:datasource:add" })
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(Datasource datasource) {
 		datasourceService.addDatasource(datasource);
@@ -65,7 +73,7 @@ public class DatasourceController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequiresPermissions(value = { "datasource:edit" })
+	@RequiresPermissions(value = { "datafetch:datasource:edit" })
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String edit(Datasource datasource) {
 		datasourceService.updateDatasource(datasource);
@@ -74,15 +82,26 @@ public class DatasourceController {
 
 	/**
 	 * 数据源管理-删除数据
+	 * 
 	 * @param datasource
 	 * @return
 	 */
 	@ResponseBody
-	@RequiresPermissions(value = { "datasource:delete" })
+	@RequiresPermissions(value = { "datafetch:datasource:delete" })
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Datasource datasource) {
 		datasourceService.deleteDatasource(datasource);
 		return "success";
+	}
+
+	@ResponseBody
+	@RequiresPermissions(value = { "datafetch:datasource:list" })
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	public String test(Datasource datasource) {
+		if (DbUtil.testConnection(datasource)) {
+			return "success";
+		}
+		return "fail";
 	}
 
 }

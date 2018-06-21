@@ -1,10 +1,10 @@
-package priv.yulong.datasourse.mapper;
+package priv.yulong.datafetch.datasourse.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import priv.yulong.datasourse.model.Datasource;
+import priv.yulong.datafetch.datasourse.model.Datasource;
 
 @Mapper
 public interface DatasourceMapper {

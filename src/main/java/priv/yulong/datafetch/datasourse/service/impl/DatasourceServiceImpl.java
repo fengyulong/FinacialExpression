@@ -1,4 +1,4 @@
-package priv.yulong.datasourse.service.impl;
+package priv.yulong.datafetch.datasourse.service.impl;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import priv.yulong.datasourse.mapper.DatasourceMapper;
-import priv.yulong.datasourse.model.Datasource;
-import priv.yulong.datasourse.service.DatasourceService;
+import priv.yulong.datafetch.datasourse.mapper.DatasourceMapper;
+import priv.yulong.datafetch.datasourse.model.Datasource;
+import priv.yulong.datafetch.datasourse.service.DatasourceService;
 
 @Service
 @Transactional

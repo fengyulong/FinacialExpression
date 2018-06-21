@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yulong.BaseJunit4Test;
 
-import priv.yulong.datasourse.model.Datasource;
-import priv.yulong.datasourse.model.Datasource.DbType;
-import priv.yulong.datasourse.model.Datasource.SoftVersion;
-import priv.yulong.datasourse.service.DatasourceService;
+import priv.yulong.datafetch.datasourse.model.Datasource;
+import priv.yulong.datafetch.datasourse.model.Datasource.DbType;
+import priv.yulong.datafetch.datasourse.model.Datasource.SoftVersion;
+import priv.yulong.datafetch.datasourse.service.DatasourceService;
 
 public class DatasourceServiceTest extends BaseJunit4Test {
 
@@ -28,7 +28,7 @@ public class DatasourceServiceTest extends BaseJunit4Test {
 		ds.setDbType(DbType.Oracle);
 		ds.setHost("host");
 		ds.setInstance("instance");
-		ds.setPort("port");
+		//ds.setPort("port");
 		ds.setSoftVersion(SoftVersion.EBS);
 		ds.setUserName("username");
 		ds.setUserPassword("password");

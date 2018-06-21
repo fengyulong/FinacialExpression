@@ -1,8 +1,8 @@
-package priv.yulong.datasourse.service;
+package priv.yulong.datafetch.datasourse.service;
 
 import java.util.List;
 
-import priv.yulong.datasourse.model.Datasource;
+import priv.yulong.datafetch.datasourse.model.Datasource;
 
 public interface DatasourceService {
 

@@ -45,6 +45,7 @@
 			url : '/expression/sys/user/query',
 			pagination : true,
 			singleSelect:true,
+			fit : true,
 			pageSize : 10,
 			pageList : [ 10, 20 , 30],
 			rownumbers : true,

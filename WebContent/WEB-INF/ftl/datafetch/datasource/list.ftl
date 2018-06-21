@@ -13,28 +13,28 @@
 			<table id="datasource_table"></table>
 			<div id="tb" style="padding:5px">
 				<div>
-					<@shiro.hasPermission name = "datasource:add">
+					<@shiro.hasPermission name = "datafetch:datasource:add">
 					<a href="#" id="datasource_add" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="add()">新增</a>
 					</@shiro.hasPermission>
-					<@shiro.hasPermission name = "datasource:edit">
+					<@shiro.hasPermission name = "datafetch:datasource:edit">
 					<a href="#" id="datasource_edit" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="edit()" >编辑</a>
 					</@shiro.hasPermission>
-					<@shiro.hasPermission name = "datasource:add">
-					<a href="#" id="datasource_save" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="save()" >保存</a>
+					<@shiro.hasPermission name = "datafetch:datasource:add">
+					<a href="#" id="datasource_save" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="save()" >保存</a>
 					</@shiro.hasPermission>
-					<@shiro.lacksPermission name = "datasource:add">
-					<@shiro.hasPermission name = "datasource:edit">
-					<a href="#" id="datasource_save" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="save()" >保存</a>
+					<@shiro.lacksPermission name = "datafetch:datasource:add">
+					<@shiro.hasPermission name = "datafetch:datasource:edit">
+					<a href="#" id="datasource_save" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="save()" >保存</a>
 					</@shiro.hasPermission>
 					</@shiro.lacksPermission>
-					<@shiro.hasPermission name = "datasource:delete">
+					<@shiro.hasPermission name = "datafetch:datasource:delete">
 					<a href="#" id="datasource_delete" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="del()">删除</a>
 					</@shiro.hasPermission>
 				</div>
 			</div>
 		</div>
 		<div data-options="region:'center'">
-			<form id="datasource_form" action="${path}/datasource/add" method="post">
+			<form id="datasource_form" action="${path}/datafetch/datasource/add" method="post">
 				<table style="padding:10px;width:500px;">
 			    	<tr>
 						<td>名称:</td>
@@ -49,11 +49,11 @@
 					<tr>
 						<td>版本:</td>
 						<td>
-							<input class="easyui-combobox" name="softVersion"  data-options="valueField:'value',textField:'text',editable:false,data:[{value:'EBS',text:'EBS'}]" />
+							<input class="easyui-combobox" name="softVersion"  data-options="required:true,valueField:'value',textField:'text',editable:false,data:[{value:'EBS',text:'EBS'}]" />
 						</td>
 						<td>数据库:</td>
 						<td>
-							<input class="easyui-combobox" name="dbType"  data-options="valueField:'value',textField:'text',editable:false,data:[{value:'MySql',text:'MySql'},{value:'SqlServer',text:'SqlServer'},{value:'Oracle',text:'Oracle'}]" />
+							<input class="easyui-combobox" name="dbType"  data-options="required:true,valueField:'value',textField:'text',editable:false,data:[{value:'MySql',text:'MySql'},{value:'SqlServer',text:'SqlServer'},{value:'Oracle',text:'Oracle'}]" />
 						</td>
 					</tr>
 					<tr>
@@ -69,7 +69,7 @@
 					<tr>
 						<td>主机:</td>
 						<td>
-							<input class="easyui-textbox" type="text" name="host" data-options="required:true" value="" />
+							<input class="easyui-textbox" type="text" name="host" data-options="required:true,validType:'ip'" value="" />
 						</td>
 						<td>端口:</td>
 						<td>
@@ -94,19 +94,18 @@
 	
 	<script type="text/javascript" src="${path}/static/js/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="${path}/static/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${path}/static/js/easyui/jquery.easyui.extend.js"></script>
 	<script type="text/javascript" src="${path}/static/js/easyui/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript">
 	var datasource_table,datasource_form,form_state = '';
 	$(function(){
 		datasource_table = $('#datasource_table').datagrid({
-			url : '${path}/datasource/list',
-			//pagination : true,
+			url : '${path}/datafetch/datasource/list',
 			singleSelect:true,
-			//pageSize : 5,
-			//pageList : [ 5, 10 , 15],
 			rownumbers : true,
 			striped : true,
 			idField : 'code',
+			fit : true,
 			columns : [ [ 
 			{field : 'name',title : '名称',width : 100,sortable : true,},
 			{field : 'code',title : '代码',width : 100,sortable : true,}, 
@@ -116,10 +115,9 @@
 			{field : 'host',title : '主机',width : 100,sortable : true,},
 			{field : 'port',title : '端口号',width : 100,sortable : true,} ,
 			{field : 'userName',title : '登录用户',width : 100,sortable : true,},
-			{field : 'userPassword',title : '登录密码',width : 100,sortable : true,}  
+			{field : 'userPassword',hidden : true,}  
 			] ],
 			toolbar : '#tb',
-			
 			onSelect : function(rowIndex, rowData){
 				disableForm();
 				fillForm(rowData);
@@ -131,11 +129,11 @@
 	});
 	
 	function add(){
-		enableForm();
+		enableForm(false);
 		clearForm();
 		setToolBar(false,false,true,false);
 		$('#datasource_form').form({
-			url : '${path}/datasource/add',
+			url : '${path}/datafetch/datasource/add',
 			success : function(data){
 				if(data == 'success'){
 					parent.$.messager.show({ title : "提示",msg: "新增成功！"});
@@ -150,10 +148,10 @@
 	}
 	
 	function edit(){
-		enableForm();
+		enableForm(true);
 		setToolBar(false,false,true,false);
 		$('#datasource_form').form({
-			url : '${path}/datasource/edit',
+			url : '${path}/datafetch/datasource/edit',
 			success : function(data){
 				if(data == 'success'){
 					parent.$.messager.show({ title : "提示",msg: "修改成功！"});
@@ -169,27 +167,31 @@
 		});
 	}
 	
-	function delete(){
+	function del(){
 		var row = datasource_table.datagrid('getSelected');
 		if(row){
 			parent.$.messager.confirm('提示','删除后无法回复，您确定要删除？',function(data){
 				if(data){
 					$.ajax({
 						type : 'post',
-						url : '${path}/datasource/delete',
+						url : '${path}/datafetch/datasource/delete',
 						data : row,
 						success : function(data){
 							if(data == 'success'){
-								var rowIndex = datasource_table.datagrid('getRowIndex',fRow.code);
-								datasource_table.datagrid('deleteRow',rowIndex);
 								parent.$.messager.show({ title : "提示",msg: "操作成功！"});
+								var rowIndex = datasource_table.datagrid('getRowIndex',row.code);
+								datasource_table.datagrid('deleteRow',rowIndex); 
+								if(rowIndex != 0){
+									datasource_table.datagrid('selectRow',rowIndex-1);
+								}else{
+									datasource_table.datagrid('selectRow',0);
+								}
 							}else{
 								parent.$.messager.alert(data);
 							}
 						}
 					});
 				}
-			
 			});
 		}
 	}
@@ -228,9 +230,14 @@
 		$("#datasource_form .easyui-combobox").combobox({disabled:true});
 	}
 	
-	function enableForm(){
+	function enableForm(isEdit){
 		$("#datasource_form .easyui-textbox").textbox({disabled:false});
 		$("#datasource_form .easyui-combobox").combobox('enable');
+		if(isEdit){
+			$("input[name='code']").prev().attr('readonly','readonly');
+		}else{
+			$("input[name='code']").prev().removeAttr('readonly');
+		}
 	}
 	
 	function clearForm(){
@@ -246,21 +253,39 @@
 		$("#datasource_form").form('load',rowData);
 	}
 	
+	
 	function getFormData(){
 		var o = {};
-		var a = $('#datasource_form').serializeArray();
-		$.each(a, function() {
-			if (o[this.name] !== undefined) {
-				if (!o[this.name].push) {
-					o[this.name] = [o[this.name]];
-				}
-				o[this.name].push(this.value || '');
-			} else {
-				o[this.name] = this.value || '';
-			}
-		});
+		o.name = $("input[name='name']").val();
+		o.code = $("input[name='code']").val();
+		o.softVersion = $("input[name='softVersion']").val();
+		o.dbType = $("input[name='dbType']").val();
+		o.userName = $("input[name='userName']").val();
+		o.userPassword = $("input[name='userPassword']").val();
+		o.host = $("input[name='host']").val();
+		o.port = $("input[name='port']").val();
+		o.instance = $("input[name='instance']").val();
 		return o;
 	}
+	
+	function test(){
+		if($('#datasource_form').form('validate')){
+			$.ajax({
+				type : 'post',
+				url : '${path}/datafetch/datasource/test',
+				data : getFormData(),
+				success : function(data){
+					if(data == 'success'){
+						parent.$.messager.alert({ title : "提示",msg: "连接成功！"});
+					}else{
+						parent.$.messager.alert({ title : "提示",msg: "连接失败！"});
+					}
+				}
+			});
+		}
+	}
+	
+	
 	
 	
 	

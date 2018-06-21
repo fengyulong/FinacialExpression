@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import priv.yulong.datasourse.model.Datasource;
-import priv.yulong.datasourse.service.DatasourceService;
+import priv.yulong.datafetch.datasourse.model.Datasource;
+import priv.yulong.datafetch.datasourse.service.DatasourceService;
 
 @Controller
 public class TestLogController {
@@ -28,7 +28,7 @@ public class TestLogController {
 		//ds.setDbType("dbType");
 		ds.setHost("host");
 		ds.setInstance("instance");
-		ds.setPort("port");
+		//ds.setPort("port");
 		//ds.setSoftVersion("softVersion");
 		ds.setUserName("username");
 		ds.setUserPassword("password");

@@ -89,6 +89,7 @@
 				url : '${path}/sys/dict/itemQuery',
 				pagination : true,
 				singleSelect:true,
+				fit : true,
 				pageSize : 5,
 				pageList : [ 5, 10 ],
 				rownumbers : true,
