@@ -9,13 +9,14 @@
 		<result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
 		<result column="REP_CODE" jdbcType="VARCHAR" property="repCode" />
 		<result column="REP_NAME" jdbcType="VARCHAR" property="repName" />
+		<result column="BOOK_CODE" jdbcType="VARCHAR" property="bookCode" />
 	</resultMap>
 	<resultMap id="TreeResultMap" type="priv.yulong.datafetch.org.model.OrgMapping" extends="BaseResultMap">
 		<collection property="children" javaType="java.util.ArrayList" column="code"
 			ofType="priv.yulong.datafetch.org.model.OrgMapping" select="selectSubOrgMapping"></collection>
 	</resultMap>
 	<sql id="Base_Column_List">
-		CODE, NAME, REMARK, DATASOURCE_CODE, PARENT_CODE, REP_CODE, REP_NAME
+		CODE, NAME, REMARK, DATASOURCE_CODE, PARENT_CODE, REP_CODE, REP_NAME, BOOK_CODE
 	</sql>
 	<select id="selectSubOrgMapping" parameterType="java.lang.String" resultMap="TreeResultMap">
 		select
@@ -35,6 +36,13 @@
 		from DIC_ORG_MAPPING
 		where PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
 		 order by code
+	</select>
+	
+	<select id="selectByRepCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_MAPPING
+		where REP_CODE = #{repCode,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="selectWithNextLevelChildren" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -64,10 +72,10 @@
 	<insert id="insert" parameterType="priv.yulong.datafetch.org.model.OrgMapping">
 		insert into DIC_ORG_MAPPING (CODE, NAME, REMARK,
 		DATASOURCE_CODE, PARENT_CODE,
-		REP_CODE,REP_NAME
+		REP_CODE,REP_NAME,BOOK_CODE
 		)
 		values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
-		#{datasourceCode,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{repCode,jdbcType=VARCHAR}, #{repName,jdbcType=VARCHAR}
+		#{datasourceCode,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{repCode,jdbcType=VARCHAR}, #{repName,jdbcType=VARCHAR},#{bookCode,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="priv.yulong.datafetch.org.model.OrgMapping">
@@ -94,6 +102,9 @@
 			<if test="repName != null">
 				REP_NAME,
 			</if>
+			<if test="bookCode != null">
+				BOOK_CODE,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="code != null">
@@ -116,6 +127,9 @@
 			</if>
 			<if test="repName != null">
 				#{repName,jdbcType=VARCHAR},
+			</if>
+			<if test="bookCode != null">
+				#{bookCode,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -140,6 +154,9 @@
 			<if test="repName != null">
 				REP_NAME = #{repName,jdbcType=VARCHAR},
 			</if>
+			<if test="bookCode != null">
+				BOOK_CODE = #{bookCode,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where CODE = #{code,jdbcType=VARCHAR}
 	</update>
@@ -152,7 +169,8 @@
 		PARENT_CODE =
 		#{parentCode,jdbcType=VARCHAR},
 		REP_CODE = #{repCode,jdbcType=VARCHAR},
-		REP_NAME = #{repName,jdbcType=VARCHAR}
+		REP_NAME = #{repName,jdbcType=VARCHAR},
+		BOOK_CODE = #{bookCode,jdbcType=VARCHAR}
 		where CODE = #{code,jdbcType=VARCHAR}
 	</update>
 </mapper>

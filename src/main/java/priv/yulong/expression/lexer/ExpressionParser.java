@@ -2,6 +2,7 @@ package priv.yulong.expression.lexer;
 
 import java.util.Stack;
 
+import priv.yulong.expression.datatype.Valuable;
 import priv.yulong.expression.token.OperatorToken;
 import priv.yulong.expression.token.StringToken;
 import priv.yulong.expression.token.Token;
@@ -80,5 +81,13 @@ public class ExpressionParser {
 		}
 		ExpressionNode root = nodeStack.pop();
 		return root;
+	}
+	
+	public static void main(String[] args) {
+		String exp = "max(1+6,2+8,3^4)";
+		ExpressionNode node =  buildExpression(exp);
+		Valuable ret = ExpressionCalculator.CalculateSubExpression(node,null);
+		System.out.println(ret.getNumberValue());
+		
 	}
 }

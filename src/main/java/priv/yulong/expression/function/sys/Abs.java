@@ -29,4 +29,14 @@ public class Abs implements Function {
 		throw new ArgumentsMismatchException(args, getName());
 	}
 
+	@Override
+	public String description() {
+		StringBuffer desc = new StringBuffer();
+		desc.append("公式格式：abs(param) 			\n");
+		desc.append("公式描述：求绝对值 				\n");
+		desc.append("参数说明：param数字类型，必填 	\n");
+		desc.append("公式示例：abs(-5.8)  结果是5.8 	\n");
+		return desc.toString();
+	}
+
 }

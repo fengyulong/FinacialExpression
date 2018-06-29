@@ -7,7 +7,7 @@ public class FixExpResult {
 	private String flag;
 	private String dataType;
 	private List<String> expression = new ArrayList<String>();
-	private List<String> values;
+	private List<String> values = new ArrayList<String>();
 	private boolean valid = true;
 
 	public String getFlag() {
@@ -48,6 +48,14 @@ public class FixExpResult {
 
 	public void setValid(boolean valid) {
 		this.valid = valid;
+	}
+	
+	public void addExpression(String expr){
+		expression.add(expr);
+	}
+	
+	public void addValue(String value) {
+		values.add(value);
 	}
 
 }

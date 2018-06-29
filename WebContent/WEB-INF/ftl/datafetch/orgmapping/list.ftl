@@ -32,31 +32,37 @@
 									<tr>
 										<td>核算机构代码:</td>
 										<td>
-											<input class="easyui-textbox" type="text" name="code" data-options="required:true,validType : ['length[0,60]']" />
+											<input class="easyui-textbox" type="text" name="code" data-options="required:true,validType : ['length[0,60]'],disabled:true" />
 										</td>
 										<td>核算机构名称:</td>
 										<td>
-											<input class="easyui-textbox" type="text" name="name" data-options="required:true,validType : ['length[0,60]']"  />
+											<input class="easyui-textbox" type="text" name="name" data-options="required:true,validType : ['length[0,60]'],disabled:true"  />
 										</td>
 									</tr>
 									<tr>
 										<td>报表机构代码:</td>
 										<td>
-											<input class="easyui-textbox" type="text" name="repCode" data-options="required:true,validType : ['length[0,60]']"  />
+											<input class="easyui-textbox" type="text" name="repCode" data-options="required:true,validType : ['length[0,60]'],disabled:true"  />
 										</td>
 										<td>报表机构名称:</td>
 										<td>
-											<input class="easyui-textbox" type="text" name="repName" data-options="required:true,validType : ['length[0,60]']" />
+											<input class="easyui-textbox" type="text" name="repName" data-options="required:true,validType : ['length[0,60]'],disabled:true" />
 										</td>
 									</tr>
 									<tr>
 										<td>数据源:</td>
 										<td>
-											<input class="easyui-combobox" type="text" name="datasourceCode" data-options="required:true,editable:false,url:'${path}/datafetch/datasource/combolist',valueField:'code',textField:'name'"  />
+											<input class="easyui-combobox" type="text" name="datasourceCode" data-options="required:true,disabled:true,editable:false,url:'${path}/datafetch/datasource/combolist',valueField:'code',textField:'name'"  />
 										</td>
-										<td>备注:</td>
+										<td>账簿代码:</td>
 										<td>
-											<input class="easyui-textbox" type="text" name="remark" data-options="validType : ['length[0,200]']" />
+											<input class="easyui-textbox" type="text" name="bookCode" data-options="validType : ['length[0,60]'],disabled:true" />
+										</td>
+									</tr>
+									<tr>
+										<td>备注:</td>
+										<td colspan="3">
+											<input class="easyui-textbox" type="text" name="remark" data-options="validType : ['length[0,200]'],disabled:true" />
 										</td>
 									</tr>
 								</table>
@@ -247,6 +253,7 @@
 		o.datasourceCode = $("input[name='datasourceCode']").val();
 		o.remark = $("input[name='remark']").val();
 		o.parentCode = $("input[name='parentCode']").val();
+		o.bookCode = $("input[name='bookCode']").val();
 		return o;
 	}
 	

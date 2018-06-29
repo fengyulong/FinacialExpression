@@ -18,6 +18,8 @@ public class OrgMapping {
 
 	private String repName;
 
+	private String bookCode;
+
 	private List<OrgMapping> children;
 
 	public static final String ROOT_CODE = "ROOT";
@@ -95,6 +97,14 @@ public class OrgMapping {
 
 	public void setRepName(String repName) {
 		this.repName = repName;
+	}
+
+	public String getBookCode() {
+		return bookCode;
+	}
+
+	public void setBookCode(String bookCode) {
+		this.bookCode = bookCode;
 	}
 
 }

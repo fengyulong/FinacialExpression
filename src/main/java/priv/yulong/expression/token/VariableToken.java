@@ -34,17 +34,16 @@ public class VariableToken extends AbstractToken<Object> {
 	}
 
 	public Object getValue(Map<String, Object> env) {
-		if (env != null) {
+		if (env != null && env.get(this.lexeme) != null) {
 			return env.get(this.lexeme);
 		} else {
 			return this.lexeme;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "[type='variable',lexeme='#" + getLexeme() + "',index=" + this.getStartIndex() + "]";
 	}
-
 
 }

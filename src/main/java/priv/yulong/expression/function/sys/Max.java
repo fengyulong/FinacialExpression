@@ -40,5 +40,15 @@ public class Max implements Function {
 		}
 		return maxValue;
 	}
+	
+	@Override
+	public String description() {
+		StringBuffer desc = new StringBuffer();
+		desc.append("公式格式：judge(param1...) 				\n");
+		desc.append("公式描述：取最大值						\n");
+		desc.append("参数说明：不定长参数，必须是数字类型		\n");
+		desc.append("公式示例：max(6,7.8,0.25)  结果是7.8	\n");
+		return desc.toString();
+	}
 
 }

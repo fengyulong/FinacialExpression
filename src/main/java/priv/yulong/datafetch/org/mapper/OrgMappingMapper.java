@@ -26,6 +26,8 @@ public interface OrgMappingMapper {
 
 	List<OrgMapping> selectByParentCode(String parentCode);
 	
+	OrgMapping selectByRepCode(String repCode);
+	
 	List<OrgMapping> selectWithNextLevelChildren(String code);
 
 }

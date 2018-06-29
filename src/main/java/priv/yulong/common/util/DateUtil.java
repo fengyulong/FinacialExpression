@@ -282,6 +282,30 @@ public class DateUtil {
 	}
 
 	/**
+	 * 获取制定日期的年
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static int getYear(Date date) {
+		Calendar d = Calendar.getInstance();
+		d.setTime(date);
+		return d.get(Calendar.YEAR);
+	}
+
+	/**
+	 * 获取制定日期的月
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static int getMonth(Date date) {
+		Calendar d = Calendar.getInstance();
+		d.setTime(date);
+		return d.get(Calendar.MONTH) + 1;
+	}
+
+	/**
 	 * 获取当前月份
 	 * 
 	 * @return

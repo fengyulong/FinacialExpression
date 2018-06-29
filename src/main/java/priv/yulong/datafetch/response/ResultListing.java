@@ -2,13 +2,17 @@ package priv.yulong.datafetch.response;
 
 import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ResultListing {
 	private String unitCode;
 	private String orgCode;
+	@JSONField(name = "isSuccess")
 	private boolean isSuccess;
 	private String errMsg;
 	private List<FixExpResult> fixExpResults;
 	private List<FloatExpResult> floatExpResults;
+	@JSONField(name = "isFormatNeeded")
 	private boolean isFormatNeeded;
 
 	public String getUnitCode() {

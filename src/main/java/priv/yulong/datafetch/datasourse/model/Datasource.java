@@ -3,7 +3,19 @@ package priv.yulong.datafetch.datasourse.model;
 public class Datasource {
 
 	public enum SoftVersion {
-		EBS
+		EBS("EBS"),
+		SJJS("数据集市");
+
+		private String title;
+
+		SoftVersion(String title) {
+			this.title = title;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
 	}
 
 	public enum DbType {

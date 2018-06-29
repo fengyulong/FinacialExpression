@@ -1,5 +1,6 @@
 package priv.yulong.datafetch.datasourse.service;
 
+import java.sql.Connection;
 import java.util.List;
 
 import priv.yulong.datafetch.datasourse.model.Datasource;
@@ -34,11 +35,20 @@ public interface DatasourceService {
 	 * @param datasource
 	 */
 	void deleteDatasource(Datasource datasource);
-	
+
 	/**
 	 * 获取所有数据源
+	 * 
 	 * @return
 	 */
 	List<Datasource> getAll();
+
+	/**
+	 * 获取数据库连接
+	 * 
+	 * @param datasourceCode
+	 * @return
+	 */
+	public Connection getConnection(String datasourceCode) throws Exception;
 
 }

@@ -37,9 +37,10 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
+				/DataFetchService = anon
 				/static/** = anon
-				/login = anon
 				/** = user
+				/login = anon
 			</value>
 		</property>
 	</bean>

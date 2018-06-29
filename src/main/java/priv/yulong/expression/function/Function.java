@@ -12,4 +12,6 @@ public interface Function {
 	
 	Valuable execute(Valuable[] args,Map<String,Object> env);
 	
+	String description();
+	
 }

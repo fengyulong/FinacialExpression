@@ -287,7 +287,7 @@ public class ExpressionLexer {
 		return false;
 	}
 
-	static final char[] OPS = { '=', '>', '<', '+', '-', '*', '/', '%', '!', '&', '|' };
+	static final char[] OPS = { '=', '>', '<', '+', '-', '*', '/', '%', '!', '&', '|','^' };
 
 	public static boolean isBinaryOP(char ch) {
 		for (char tmp : OPS) {

@@ -1,11 +1,17 @@
 package priv.yulong.datafetch.requester;
 
+import java.util.Date;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class DataFetchEnv {
 	private String recid;
 	private String instance;
 	private String unitCode;
-	private String startTime;
-	private String endTime;
+	@JSONField(format = "yyyy-M-d") 
+	private Date startTime;
+	@JSONField(format = "yyyy-M-d") 
+	private Date endTime;
 	private boolean isIncludeUncharged;
 	private String unitName;
 	private String periodScheme;
@@ -34,19 +40,19 @@ public class DataFetchEnv {
 		this.unitCode = unitCode;
 	}
 
-	public String getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public String getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 

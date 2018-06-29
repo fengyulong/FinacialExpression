@@ -63,4 +63,12 @@ public interface OrgMappingService {
 	 */
 	List<OrgMapping> getWithNextLevelChildren(String code);
 
+	/**
+	 * 根据报表机构代码查询
+	 * 
+	 * @param repCode
+	 * @return
+	 */
+	OrgMapping getByRepCode(String repCode);
+
 }

@@ -49,7 +49,7 @@
 					<tr>
 						<td>版本:</td>
 						<td>
-							<input class="easyui-combobox" name="softVersion"  data-options="required:true,valueField:'value',textField:'text',editable:false,data:[{value:'EBS',text:'EBS'}]" />
+							<input class="easyui-combobox" name="softVersion"  data-options="required:true,valueField:'value',textField:'text',editable:false,data:[{value:'EBS',text:'EBS'},{value:'SJJS',text:'数据集市'}]" />
 						</td>
 						<td>数据库:</td>
 						<td>

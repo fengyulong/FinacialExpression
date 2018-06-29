@@ -66,4 +66,9 @@ public class OrgMappingServiceImpl implements OrgMappingService {
 		return orgMappingMapper.selectWithNextLevelChildren(code);
 	}
 
+	@Override
+	public OrgMapping getByRepCode(String repCode) {
+		return orgMappingMapper.selectByRepCode(repCode);
+	}
+
 }

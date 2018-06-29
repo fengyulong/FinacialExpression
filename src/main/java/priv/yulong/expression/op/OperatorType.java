@@ -1,7 +1,7 @@
 package priv.yulong.expression.op;
 
 public enum OperatorType {
-	LEFT_BRACKET("(", -1, -1), RIGHT_BRACKET(")", -1, -1), POWER("^", -2, 1), MULTIPLY("*", -3, 2), DIVIDE("/", -3,
+	LEFT_BRACKET("(", -1, -1), RIGHT_BRACKET(")", -1, -1), POWER("^", -2, 2), MULTIPLY("*", -3, 2), DIVIDE("/", -3,
 			2), MOD("%", -3, 2), ADD("+", -4, 2), SUBTRACT("-", -4, 2), LESS("<", -5,
 					2), LESS_EQUAL("<=", -5, 2), GREATER(">", -5, 2), GREATER_EQUAL(">=", -5,
 							2), EQUAL("==", -6, 2), NOT_EQUAL("!=", -6, 2), AND("&&", -7, 2), OR("||", -8, 2);

@@ -1,11 +1,18 @@
 package priv.yulong.datafetch.response;
 
+import java.util.Date;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceSoftInfo {
-	private final String softWare = "企业财务数据中心（EFDC）";
+	private final String softWare = "企业财务取数接口";
 	private String softVersion;
-	private String startTime;
-	private String endTime;
-	private String createTime;
+	@JSONField(format = "yyyy-M-d")
+	private Date startTime;
+	@JSONField(format = "yyyy-M-d")
+	private Date endTime;
+	@JSONField(format = "yyyy-M-d")
+	private Date createTime;
 
 	public String getSoftVersion() {
 		return softVersion;
@@ -15,27 +22,27 @@ public class FinanceSoftInfo {
 		this.softVersion = softVersion;
 	}
 
-	public String getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public String getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
