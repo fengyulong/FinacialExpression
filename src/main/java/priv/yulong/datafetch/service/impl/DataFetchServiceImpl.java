@@ -149,7 +149,8 @@ public class DataFetchServiceImpl implements DataFetchService {
 	 * @return
 	 */
 	private FloatExpResult floatFetch(FloatExpression floatExp, Map<String, Object> env) {
-
+		Valuable ret = ExpressionEvaluator.evaluate(floatExp.getExpression(), env);
+		
 		return null;
 	}
 
