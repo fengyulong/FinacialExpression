@@ -8,4 +8,5 @@ import priv.yulong.datafetch.datasourse.service.DatasourceService;
 public abstract class FinancialFunctionBase {
 	protected WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 	protected DatasourceService datasourceService = wac.getBean(DatasourceService.class);
+
 }

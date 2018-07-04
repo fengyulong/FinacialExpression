@@ -1,5 +1,6 @@
 package priv.yulong.datafetch.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FloatExpResult {
@@ -38,5 +39,12 @@ public class FloatExpResult {
 
 	public void setValid(boolean valid) {
 		this.valid = valid;
+	}
+
+	public void addColResult(FixExpResult colResult) {
+		if (colResults == null) {
+			colResults = new ArrayList<FixExpResult>();
+		}
+		colResults.add(colResult);
 	}
 }

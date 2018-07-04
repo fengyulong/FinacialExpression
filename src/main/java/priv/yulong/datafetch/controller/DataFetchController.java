@@ -18,17 +18,16 @@ import priv.yulong.datafetch.service.DataFetchService;
 
 @Controller
 public class DataFetchController {
-	
+
 	@Resource
 	private DataFetchService dataFetchService;
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/DataFetchService", method = RequestMethod.POST)
+	@RequestMapping(value = "/DataFetchService", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String dataFetch(@RequestBody String json, HttpServletRequest request, HttpServletResponse response) {
 		DataFetchRequester dataFetchRequester = JSON.parseObject(json, DataFetchRequester.class);
 		DataFetchResponser rep = dataFetchService.dataFetch(dataFetchRequester);
+		System.out.println(JSON.toJSONString(rep));
 		return JSON.toJSONString(rep);
 	}
 }
-
-

@@ -54,6 +54,7 @@ public class ZWSqlGenerator implements SqlGenerator {
 		sql = sql.replace("#orgCode#", orgCode);
 		sql = sql.replace("#kmcode#", kmCode);
 		sql = sql.replace("#fetchType#", fetchType.getField());
+		sql = sql.replace("#hbCode#", hbCode);
 		return sql;
 	}
 

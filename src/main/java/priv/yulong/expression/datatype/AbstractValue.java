@@ -3,6 +3,7 @@ package priv.yulong.expression.datatype;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import priv.yulong.expression.datatype.impl.DataSet;
 import priv.yulong.expression.exception.ExpressionRuntimeException;
 
 public abstract class AbstractValue implements Valuable {
@@ -33,6 +34,11 @@ public abstract class AbstractValue implements Valuable {
 
 	@Override
 	public Boolean getBooleanValue() {
+		throw new ExpressionRuntimeException("[" + getStringValue() + "] cannot be converted to a Boolean value");
+	}
+	
+	@Override
+	public DataSet getDataSetValue() {
 		throw new ExpressionRuntimeException("[" + getStringValue() + "] cannot be converted to a Boolean value");
 	}
 

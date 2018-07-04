@@ -28,6 +28,7 @@ import priv.yulong.datafetch.response.ResultListing;
 import priv.yulong.datafetch.service.DataFetchService;
 import priv.yulong.expression.ExpressionEvaluator;
 import priv.yulong.expression.datatype.Valuable;
+import priv.yulong.expression.datatype.impl.DataSet;
 import priv.yulong.expression.function.financial.FinancialConstant;
 
 @Service
@@ -149,9 +150,33 @@ public class DataFetchServiceImpl implements DataFetchService {
 	 * @return
 	 */
 	private FloatExpResult floatFetch(FloatExpression floatExp, Map<String, Object> env) {
+		FloatExpResult floatExpResult = new FloatExpResult();
 		Valuable ret = ExpressionEvaluator.evaluate(floatExp.getExpression(), env);
-		
-		return null;
+		DataSet dataSet = ret.getDataSetValue();
+		int rowCount = dataSet.getRowCount();
+		floatExpResult.setFlag(floatExp.getFlag());
+		floatExpResult.setRowCount(rowCount);
+
+		List<FixExpression> colExpressions = floatExp.getColExpressions();
+		for (int i = 0; i < colExpressions.size(); i++) {
+			FixExpression colExpressio = colExpressions.get(i);
+			FixExpResult colResult = new FixExpResult();
+			colResult.setFlag(colExpressio.getFlag());
+			colResult.setValid(true);
+			for (int j = 0; j < rowCount; j++) {
+				dataSet.setCurrRow(j);
+				String expr = colExpressio.getExpression();
+				for (int k = 1; k <= dataSet.getcolCount(); k++) {
+					expr = expr.replace("*" + k, dataSet.getString(k - 1));
+				}
+				Valuable colRet = ExpressionEvaluator.evaluate(expr, env);
+				colResult.addExpression(expr);
+				colResult.addValue(colRet.getStringValue());
+				colResult.setDataType(colRet.getDataType().name());
+			}
+			floatExpResult.addColResult(colResult);
+		}
+		return floatExpResult;
 	}
 
 }
