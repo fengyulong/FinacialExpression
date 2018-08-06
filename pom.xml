@@ -210,11 +210,11 @@
 			<version>1.2.4</version>
 		</dependency>
 
-		<dependency>
+		<!--  <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.12</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- 添加shrio-web支持 -->
 		<dependency>
@@ -300,5 +300,19 @@
 			<url>https://gilead.svn.sourceforge.net/svnroot/gilead/gilead/maven-repo</url>
 		</repository>
 	</repositories>
+	<build>
+		<finalName>efdc</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<webXml>WebContent\WEB-INF\web.xml</webXml>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

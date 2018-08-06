@@ -37,7 +37,7 @@ public class UserServiceTest extends BaseJunit4Test {
 		 Page<User> page = PageHelper.startPage(1, 2, true);
 		List<User> list = userService.getUser(new User());
 		//PageInfo pageInfo = new PageInfo<>(list,5);  
-		DataGridModel<User> grid = new DataGridModel<>();
+		DataGridModel<User> grid = new DataGridModel<User>();
 		grid.setRows(list);
 		grid.setTotal(page.getTotal());
 		System.out.println(JSON.toJSONString(grid));

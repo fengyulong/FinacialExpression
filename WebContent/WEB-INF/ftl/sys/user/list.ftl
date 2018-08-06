@@ -42,7 +42,7 @@
 	
 	$(function() {
 		dg = $('#user_table').datagrid({
-			url : '/expression/sys/user/query',
+			url : '${path}/sys/user/query',
 			pagination : true,
 			singleSelect:true,
 			fit : true,
