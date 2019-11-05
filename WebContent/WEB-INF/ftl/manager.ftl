@@ -13,7 +13,7 @@
 			<@shiro.principal property="username"/><a href="${path}/logout">退出</a>
 		</div>
 		<div data-options="region:'south',split:true" style="height:50px;"></div>
-		<div data-options="region:'west',split:true" title="West" style="width:200px;">
+		<div data-options="region:'west',split:true" title="导航" style="width:200px;">
 			<div class="easyui-accordion" data-options="fit:true,border:false">
 				<#list menuList as accordion>
 				<@shiro.hasPermission name = accordion.code>
