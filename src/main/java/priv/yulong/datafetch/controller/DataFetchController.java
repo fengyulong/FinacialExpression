@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import priv.yulong.common.util.LogUtil;
 import priv.yulong.datafetch.requester.DataFetchRequester;
 import priv.yulong.datafetch.response.DataFetchResponser;
 import priv.yulong.datafetch.service.DataFetchService;
@@ -19,15 +20,23 @@ import priv.yulong.datafetch.service.DataFetchService;
 @Controller
 public class DataFetchController {
 
-	@Resource
-	private DataFetchService dataFetchService;
+    @Resource
+    private DataFetchService dataFetchService;
 
-	@ResponseBody
-	@RequestMapping(value = "/DataFetchService", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	public String dataFetch(@RequestBody String json, HttpServletRequest request, HttpServletResponse response) {
-		DataFetchRequester dataFetchRequester = JSON.parseObject(json, DataFetchRequester.class);
-		DataFetchResponser rep = dataFetchService.dataFetch(dataFetchRequester);
-		System.out.println(JSON.toJSONString(rep));
-		return JSON.toJSONString(rep);
-	}
+    @ResponseBody
+    @RequestMapping(value = "/DataFetchService", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public String dataFetch(@RequestBody String json, HttpServletRequest request, HttpServletResponse response) {
+        LogUtil.info("取数请求参数:{}", json);
+        String resp = null;
+        try {
+            DataFetchRequester dataFetchRequester = JSON.parseObject(json, DataFetchRequester.class);
+            DataFetchResponser rep = dataFetchService.dataFetch(dataFetchRequester);
+            resp = JSON.toJSONString(rep);
+        } catch (Exception e) {
+            LogUtil.error("取数异常:{}", e.getMessage(), e);
+
+        }
+        LogUtil.info("取数结果:{}", resp);
+        return resp;
+    }
 }

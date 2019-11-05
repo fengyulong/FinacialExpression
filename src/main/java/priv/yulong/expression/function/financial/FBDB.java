@@ -4,22 +4,21 @@ import priv.yulong.datafetch.datasourse.model.Datasource;
 import priv.yulong.expression.datatype.DataType;
 import priv.yulong.expression.datatype.Valuable;
 import priv.yulong.expression.datatype.impl.DataSet;
+import priv.yulong.expression.datatype.impl.DataSetValue;
 import priv.yulong.expression.exception.ArgumentsMismatchException;
 import priv.yulong.expression.exception.ExpressionRuntimeException;
-import priv.yulong.expression.function.Function;
 
 import java.sql.*;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @ClassName BDB
- * @Description: 中煤表对表取数
+ * @ClassName FBDB
+ * @Description: 中煤表对表浮动取数公式
  * @Author yulong.feng
- * @Date 2019-11-04
+ * @Date 2019-11-05
  * @Version V1.0
  **/
-public class BDB extends FinancialFunctionBase implements Function {
+public class FBDB extends BDB {
     @Override
     public String getName() {
         return "BDB";
@@ -27,32 +26,18 @@ public class BDB extends FinancialFunctionBase implements Function {
 
     @Override
     public int getDimension() {
-        return 3;
+        return 2;
     }
 
     @Override
     public Valuable execute(Valuable[] args, Map<String, Object> env) {
-        if (args == null || args.length < 3 ) {
+        if (args == null || args.length < 2) {
             throw new ArgumentsMismatchException(args, getName());
         }
-        Map<String,DataSet> cacheMap = (Map<String,DataSet>)env.get(FinancialConstant.EnvField.CACHE_MAP);
-        if(cacheMap == null){
-            cache(args,env);
+        Map<String, DataSet> cacheMap = (Map<String, DataSet>) env.get(FinancialConstant.EnvField.CACHE_MAP);
+        if (cacheMap == null) {
+            cache(args, env);
         }
-        //从cacheMap中取数
-        cacheMap = (Map<String,DataSet>)env.get(FinancialConstant.EnvField.CACHE_MAP);
-
-        return null;
-    }
-
-    @Override
-    public String description() {
-        return null;
-    }
-
-
-    protected void cache(Valuable[] args, Map<String, Object> env){
-        Map<String,DataSet> cacheMap = new HashMap<>();
         Datasource.SoftVersion softVersion = (Datasource.SoftVersion) env.get(FinancialConstant.EnvField.SOFT_VERSION);
         SqlGenerator sqlGenerator = SqlGeneratorFactory.createSqlGenerator(getName(), softVersion);
         String sql = sqlGenerator.generateSQL(args, env);
@@ -69,15 +54,14 @@ public class BDB extends FinancialFunctionBase implements Function {
                 dataSet.addResultType(DataType.STRING);
             }
             ResultSet result = statement.executeQuery();
-            //将结果集封装到Map
-            while(result.next()){
+            while (result.next()) {
                 dataSet.newRow();
                 for (int i = 0; i < columnCount; i++) {
                     dataSet.add(i, result.getString(i + 1));
                 }
-                //缓存到cacheMap
             }
             result.close();
+            return new DataSetValue(dataSet);
         } catch (Exception e) {
             throw new ExpressionRuntimeException("执行公式取数发生错误", e);
         } finally {
@@ -89,6 +73,11 @@ public class BDB extends FinancialFunctionBase implements Function {
                 }
             }
         }
-        env.put(FinancialConstant.EnvField.CACHE_MAP,cacheMap);
+
+    }
+
+    @Override
+    public String description() {
+        return null;
     }
 }
