@@ -13,6 +13,7 @@ public class FinancialConstant {
 		public static final String BOOK_CODE = "bookCode";
 		public static final String SOFT_VERSION = "softVersion";
 		public static final String DATA_SET = "dataSet";
+		public static final String CACHE_MAP = "cacheMap";
 	}
 	
 	public class SqlParam{

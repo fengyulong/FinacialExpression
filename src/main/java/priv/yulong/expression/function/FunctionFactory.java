@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import priv.yulong.common.util.StringUtil;
+import priv.yulong.expression.function.financial.BDB;
 import priv.yulong.expression.function.financial.FSQL;
 import priv.yulong.expression.function.financial.ZFZ;
 import priv.yulong.expression.function.financial.ZW;
@@ -23,9 +24,10 @@ public class FunctionFactory {
 		registerFunction(new Judge());
 
 		//Financial function
-		registerFunction(new ZW());
-		registerFunction(new ZFZ());
-		registerFunction(new FSQL());
+		//registerFunction(new ZW());
+		//registerFunction(new ZFZ());
+		//registerFunction(new FSQL());
+		registerFunction(new BDB());
 	}
 
 	public static Function getFunction(String identifier) {

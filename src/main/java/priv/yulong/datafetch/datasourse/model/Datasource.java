@@ -4,7 +4,7 @@ public class Datasource {
 
 	public enum SoftVersion {
 		EBS("EBS"),
-		TEST("测试"),
+		ZM("中煤ERP中间库"),
 		SJJS("数据集市");
 
 		private String title;
