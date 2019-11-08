@@ -93,7 +93,8 @@ public class DataFetchServiceImpl implements DataFetchService {
 	 * @param env
 	 * @return
 	 */
-	private List<FixExpResult> fixFetch(List<FixExpression> fixExpList, Map<String, Object> env) {
+	@Override
+	public List<FixExpResult> fixFetch(List<FixExpression> fixExpList, Map<String, Object> env) {
 		if (fixExpList == null || fixExpList.isEmpty()) {
 			return null;
 		}
@@ -112,7 +113,8 @@ public class DataFetchServiceImpl implements DataFetchService {
 	 * @param env
 	 * @return
 	 */
-	private List<FloatExpResult> floatFetch(List<FloatExpression> floatExpList, Map<String, Object> env) {
+	@Override
+	public List<FloatExpResult> floatFetch(List<FloatExpression> floatExpList, Map<String, Object> env) {
 		if (floatExpList == null || floatExpList.isEmpty()) {
 			return null;
 		}
@@ -131,7 +133,8 @@ public class DataFetchServiceImpl implements DataFetchService {
 	 * @param env
 	 * @return
 	 */
-	private FixExpResult fixFetch(FixExpression fixExp, Map<String, Object> env) {
+	@Override
+	public FixExpResult fixFetch(FixExpression fixExp, Map<String, Object> env) {
 		Valuable ret = ExpressionEvaluator.evaluate(fixExp.getExpression(), env);
 		FixExpResult result = new FixExpResult();
 		result.setFlag(fixExp.getFlag());
@@ -149,7 +152,8 @@ public class DataFetchServiceImpl implements DataFetchService {
 	 * @param env
 	 * @return
 	 */
-	private FloatExpResult floatFetch(FloatExpression floatExp, Map<String, Object> env) {
+	@Override
+	public FloatExpResult floatFetch(FloatExpression floatExp, Map<String, Object> env) {
 		FloatExpResult floatExpResult = new FloatExpResult();
 		Valuable ret = ExpressionEvaluator.evaluate(floatExp.getExpression(), env);
 		DataSet dataSet = ret.getDataSetValue();

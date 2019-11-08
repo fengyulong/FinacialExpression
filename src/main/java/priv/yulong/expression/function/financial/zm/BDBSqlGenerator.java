@@ -29,6 +29,6 @@ public class BDBSqlGenerator implements SqlGenerator {
     }
 
     private String getSqlTemplate() {
-        return "select * from #tableName# where orgCode = #orgCode#";
+        return "select * from CUX_RP_HEADER#tableName# where ORG_ID = #orgCode# and PERIOD_NAME = '#year#-#period#'";
     }
 }
