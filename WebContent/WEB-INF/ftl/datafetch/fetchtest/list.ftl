@@ -19,9 +19,9 @@
 						<div title="固定公式" style="padding:10px 0 0 10px">
 							<form id="fixForm" action="${path}/datafetch/fetchtest/fix" method="post">
 								<input type="hidden" type="text" name="unitCode" />
-								<input class="easyui-datebox" type="text" name="startDate" label="开始日期:" labelPosition="top" value="2018-01-01" data-options="required:true" style="width:400px"/>
-								<input class="easyui-datebox" type="text" name="endDate" label="结束日期:" labelPosition="top" value="2018-12-01" data-options="required:true" style="width:400px"/>
-								<input class="easyui-textbox" type="text" name="expression" label="取数公式:" labelPosition="top" value="BDB(1,1,segment1)" data-options="required:true"  style="width:400px"/>
+								<input class="easyui-datebox" type="text" name="startDate" label="开始日期:" labelPosition="top" data-options="required:true" style="width:400px"/>
+								<input class="easyui-datebox" type="text" name="endDate" label="结束日期:" labelPosition="top" data-options="required:true" style="width:400px"/>
+								<input class="easyui-textbox" type="text" name="expression" label="取数公式:" labelPosition="top" data-options="required:true"  style="width:400px"/>
 								<div style="margin: 20px">
 									<a href="#" class="easyui-linkbutton" style="width:200px" onclick="fixFetch()">执行取数</a>
 								</div>
@@ -30,10 +30,10 @@
 						<div title="浮动公式" style="padding:10px 0 0 10px">
 							<form id="floatForm" action="${path}/datafetch/fetchtest/float" method="post">
 								<input type="hidden" name="unitCode" />
-								<input class="easyui-datebox" name="startDate" label="开始日期:" labelPosition="top" value="2018-01-01" editable="false" style="width:400px"/>
-								<input class="easyui-datebox" name="endDate" label="结束日期:" labelPosition="top" value="2018-12-01" data-options="required:true" style="width:400px"/>
-								<input class="easyui-textbox" name="expression" label="浮动公式:" labelPosition="top" value="FBDB(1,52)" data-options="required:true" style="width:400px"/>
-								<input class="easyui-textbox" name="colExpression" label="列值公式:" labelPosition="top" value="val(segment1),val(segment2)" data-options="required:true" style="width:400px"/>
+								<input class="easyui-datebox" name="startDate" label="开始日期:" labelPosition="top" editable="false" style="width:400px"/>
+								<input class="easyui-datebox" name="endDate" label="结束日期:" labelPosition="top" data-options="required:true" style="width:400px"/>
+								<input class="easyui-textbox" name="expression" label="浮动公式:" labelPosition="top" data-options="required:true" style="width:400px"/>
+								<input class="easyui-textbox" name="colExpression" label="列值公式:" labelPosition="top" data-options="required:true" style="width:400px"/>
 								<div style="margin: 20px">
 									<a href="#" class="easyui-linkbutton" style="width:200px" onclick="floatFetch()">执行取数</a>
 								</div>
