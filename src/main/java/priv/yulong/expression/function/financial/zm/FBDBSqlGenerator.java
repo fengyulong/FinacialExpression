@@ -19,8 +19,8 @@ public class FBDBSqlGenerator implements SqlGenerator {
     public String generateSQL(Valuable[] args, Map<String, Object> env) {
         String tableName = args[0].getStringValue();
         Integer rowNum = args[1].getNumberValue().intValue();
-        Map<Integer, DataSet> cacheMap = (Map<Integer, DataSet>) env.get(FinancialConstant.EnvField.CACHE_MAP);
-        String headerId = cacheMap.get(rowNum).getString("HEADER_ID");
+        Map<Integer,  Map<String,String>> cacheMap = (Map<Integer,  Map<String,String>>) env.get(FinancialConstant.EnvField.CACHE_MAP);
+        String headerId = cacheMap.get(rowNum).get("HEADER_ID");
         String sql = "select * from CUX_RP_LINE#tableName# where HEADER_ID = #headerId# order by ORDER_NUM";
         sql = sql.replace("#tableName#", tableName);
         sql = sql.replace("#headerId#", headerId);

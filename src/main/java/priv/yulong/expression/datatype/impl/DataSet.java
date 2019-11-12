@@ -131,9 +131,9 @@ public class DataSet {
 
 	public String getString(int index) {
 		if (getDataType(index) == DataType.DATE) {
-			return DateUtil.getDateFormat(activeRecord.getDate(index));
+			return activeRecord.getDate(index) == null ? null : DateUtil.getDateFormat(activeRecord.getDate(index));
 		} else {
-			return activeRecord.getObject(index).toString();
+			return activeRecord.getObject(index) == null ? null : activeRecord.getObject(index).toString();
 		}
 	}
 

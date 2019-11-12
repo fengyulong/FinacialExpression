@@ -10,7 +10,9 @@ import priv.yulong.expression.exception.ExpressionRuntimeException;
 import priv.yulong.expression.function.Function;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,15 +38,16 @@ public class BDB extends FinancialFunctionBase implements Function {
         if (args == null || args.length != 3) {
             throw new ArgumentsMismatchException(args, getName());
         }
-        Map<Integer, DataSet> cacheMap = (Map<Integer, DataSet>) env.get(FinancialConstant.EnvField.CACHE_MAP);
+        Map<Integer, Map<String,String>> cacheMap = (Map<Integer, Map<String,String>>) env.get(FinancialConstant.EnvField.CACHE_MAP);
         if (cacheMap == null) {
             cache(args, env);
+            cacheMap = (Map<Integer, Map<String,String>>) env.get(FinancialConstant.EnvField.CACHE_MAP);
         }
         //从cacheMap中取数
-        cacheMap = (Map<Integer, DataSet>) env.get(FinancialConstant.EnvField.CACHE_MAP);
         Integer rowNum = args[1].getNumberValue().intValue();
         String colName = args[2].getStringValue();
-        String result = cacheMap.get(rowNum).getString(colName);
+        Map<String,String> rowMap = cacheMap.get(rowNum);
+        String result = rowMap == null ? null : rowMap.get(colName.toUpperCase());
         return new StringValue(result);
     }
 
@@ -60,9 +63,9 @@ public class BDB extends FinancialFunctionBase implements Function {
 
 
     protected void cache(Valuable[] args, Map<String, Object> env) {
-        Map<Integer, DataSet> cacheMap = new HashMap<>();
+        Map<Integer, Map<String,String>> cacheMap = new HashMap<>();
         Datasource.SoftVersion softVersion = (Datasource.SoftVersion) env.get(FinancialConstant.EnvField.SOFT_VERSION);
-        SqlGenerator sqlGenerator = SqlGeneratorFactory.createSqlGenerator(getName(), softVersion);
+        SqlGenerator sqlGenerator = SqlGeneratorFactory.createSqlGenerator("BDB", softVersion);
         String sql = sqlGenerator.generateSQL(args, env);
         String datasourceCode = (String) env.get(FinancialConstant.EnvField.DATASOURCE_CODE);
         Connection connection = null;
@@ -71,20 +74,19 @@ public class BDB extends FinancialFunctionBase implements Function {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSetMetaData rsmd = statement.getMetaData();
             int columnCount = rsmd.getColumnCount();
-            DataSet dataSet = new DataSet(columnCount, 0);
+            List<String> colNameList = new ArrayList<>(columnCount);
             for (int i = 1; i <= columnCount; i++) {
-                dataSet.addField(rsmd.getColumnName(i));
-                dataSet.addResultType(DataType.STRING);
+                colNameList.add(rsmd.getColumnName(i));
             }
             ResultSet result = statement.executeQuery();
             //将结果集封装到Map
             while (result.next()) {
-                dataSet.newRow();
-                for (int i = 0; i < columnCount; i++) {
-                    dataSet.add(i, result.getString(i + 1));
+                Map<String,String> dataMap = new HashMap<>();
+                for(String colName : colNameList){
+                    dataMap.put(colName,result.getString(colName));
                 }
                 //缓存到cacheMap
-                cacheMap.put(result.getInt("ORDER_NUM"), dataSet);
+                cacheMap.put(result.getInt("ORDER_NUM"), dataMap);
             }
             result.close();
         } catch (Exception e) {

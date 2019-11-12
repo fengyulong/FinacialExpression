@@ -27,6 +27,7 @@ public class FunctionFactory {
 		//中煤取数公式注册
         registerFunction(new BDB());
         registerFunction(new FBDB());
+        registerFunction(new VAL());
     }
 
     public static Function getFunction(String identifier) {

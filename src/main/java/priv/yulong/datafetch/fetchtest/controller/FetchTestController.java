@@ -1,9 +1,11 @@
 package priv.yulong.datafetch.fetchtest.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import priv.yulong.common.util.DateUtil;
 import priv.yulong.datafetch.datasourse.model.Datasource;
 import priv.yulong.datafetch.datasourse.service.DatasourceService;
@@ -17,6 +19,8 @@ import priv.yulong.datafetch.service.DataFetchService;
 import priv.yulong.expression.function.financial.FinancialConstant;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -59,8 +63,9 @@ public class FetchTestController {
      * @Author: yulong.feng
      * @Date: 2019-11-08
     **/
-    @RequestMapping(value = "/fix", method = RequestMethod.POST)
-    public FixExpResult fixFetch(String unitCode, Date startDate, Date endDate, String expression) {
+    @ResponseBody
+    @RequestMapping(value = "/fix", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public String fixFetch(String unitCode, String startDate, String endDate, String expression) throws ParseException {
         Map<String, Object> envMap = new HashMap<String, Object>();
         OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
         Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
@@ -75,7 +80,7 @@ public class FetchTestController {
         FixExpression fixExpression = new FixExpression();
         fixExpression.setExpression(expression);
         FixExpResult fixExpResult = dataFetchService.fixFetch(fixExpression, envMap);
-        return fixExpResult;
+        return JSON.toJSONString(fixExpResult);
     }
 
     /**
@@ -86,8 +91,9 @@ public class FetchTestController {
      * @Author: yulong.feng
      * @Date: 2019-11-08
     **/
-    @RequestMapping(value = "/float", method = RequestMethod.POST)
-    public FloatExpResult floatFetch(String unitCode, Date startDate, Date endDate, String expression, String colExpression) {
+    @ResponseBody
+    @RequestMapping(value = "/float", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public String floatFetch(String unitCode, String startDate, String endDate, String expression, String colExpression) throws ParseException {
         Map<String, Object> envMap = new HashMap<String, Object>();
         OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
         Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
@@ -105,9 +111,10 @@ public class FetchTestController {
         for (String col : colExpression.split(",")) {
             FixExpression fExp = new FixExpression();
             fExp.setExpression(col);
+            fList.add(fExp);
         }
         floatExpression.setColExpressions(fList);
         FloatExpResult floatExpResult = dataFetchService.floatFetch(floatExpression, envMap);
-        return floatExpResult;
+        return JSON.toJSONString(floatExpResult);
     }
 }

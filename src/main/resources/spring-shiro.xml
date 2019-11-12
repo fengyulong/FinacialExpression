@@ -38,6 +38,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/DataFetchService = anon
+				/datafetch/fetchtest/fix = anon
 				/static/** = anon
 				/** = user
 				/login = anon

@@ -23,7 +23,7 @@ public class VAL extends FinancialFunctionBase implements Function {
 
 	@Override
 	public Valuable execute(Valuable[] args, Map<String, Object> env) {
-		if (args == null || args.length != 1 || (args[0].getDataType() != DataType.STRING && args[0].getDataType() != DataType.NUMBER)) {
+		if (args == null || args.length != 1 || (args[0].getDataType() != DataType.STRING && args[0].getDataType() != DataType.NUMBER && args[0].getDataType() != DataType.ANY)) {
 			throw new ArgumentsMismatchException(args, getName());
 		}
 		Valuable arg = args[0];

@@ -160,18 +160,18 @@ public class DataFetchServiceImpl implements DataFetchService {
 		int rowCount = dataSet.getRowCount();
 		floatExpResult.setFlag(floatExp.getFlag());
 		floatExpResult.setRowCount(rowCount);
-
+		env.put(FinancialConstant.EnvField.DATA_SET,dataSet);
 		List<FixExpression> colExpressions = floatExp.getColExpressions();
 		for (int i = 0; i < colExpressions.size(); i++) {
-			FixExpression colExpressio = colExpressions.get(i);
+			FixExpression colExpression = colExpressions.get(i);
 			FixExpResult colResult = new FixExpResult();
-			colResult.setFlag(colExpressio.getFlag());
+			colResult.setFlag(colExpression.getFlag());
 			colResult.setValid(true);
 			for (int j = 0; j < rowCount; j++) {
 				dataSet.setCurrRow(j);
-				String expr = colExpressio.getExpression();
+				String expr = colExpression.getExpression();
 				for (int k = 1; k <= dataSet.getcolCount(); k++) {
-					expr = expr.replace("*" + k, dataSet.getString(k - 1));
+					expr = expr.replace("*" + k, dataSet.getString(k - 1) == null ? "" : dataSet.getString(k - 1));
 				}
 				Valuable colRet = ExpressionEvaluator.evaluate(expr, env);
 				colResult.addExpression(expr);

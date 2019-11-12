@@ -21,7 +21,7 @@ import java.util.Map;
 public class FBDB extends BDB {
     @Override
     public String getName() {
-        return "BDB";
+        return "FBDB";
     }
 
     @Override
@@ -31,10 +31,10 @@ public class FBDB extends BDB {
 
     @Override
     public Valuable execute(Valuable[] args, Map<String, Object> env) {
-        if (args == null || args.length < 2) {
+        if (args.length != 2) {
             throw new ArgumentsMismatchException(args, getName());
         }
-        Map<String, DataSet> cacheMap = (Map<String, DataSet>) env.get(FinancialConstant.EnvField.CACHE_MAP);
+        Map<String, Map<String,String>> cacheMap = (Map<String,  Map<String,String>>) env.get(FinancialConstant.EnvField.CACHE_MAP);
         if (cacheMap == null) {
             cache(args, env);
         }
