@@ -33,7 +33,7 @@ public class DataFetchController {
             DataFetchResponser rep = dataFetchService.dataFetch(dataFetchRequester);
             resp = JSON.toJSONString(rep);
         } catch (Exception e) {
-            LogUtil.error("取数异常:{}", e.getMessage(), e);
+            LogUtil.error("取数异常:{}", e);
 
         }
         LogUtil.info("取数结果:{}", resp);
