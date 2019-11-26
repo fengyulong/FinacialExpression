@@ -21,7 +21,7 @@ public class FunctionFactory {
         registerFunction(new Judge());
 
         //Financial function
-        //registerFunction(new ZW());
+        registerFunction(new ZW());
         //registerFunction(new ZFZ());
         //registerFunction(new FSQL());
 		//中煤取数公式注册

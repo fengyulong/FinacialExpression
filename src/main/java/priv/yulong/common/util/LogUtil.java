@@ -131,11 +131,20 @@ public class LogUtil {
         } else {
             str = getLogMethod() + "[null]";
         }
-
         if (ex != null) {
-            str = str + "[" + ex.getMessage() + "]";
+            str = str + "[" + ex.getMessage() + "]\n";
+            StackTraceElement[] stackArray = ex.getStackTrace();
+            for (StackTraceElement temp : stackArray) {
+                str = str + temp.toString() + "\n";
+            }
+            Throwable cause = ex.getCause();
+            if (cause != null) {
+                stackArray = cause.getStackTrace();
+                for (StackTraceElement temp : stackArray) {
+                    str = str + temp.toString() + "\n";
+                }
+            }
         }
-
         return str;
     }
 

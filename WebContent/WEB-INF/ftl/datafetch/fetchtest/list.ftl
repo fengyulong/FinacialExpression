@@ -51,11 +51,11 @@
 
 		</div>
 	</div>
-	
-	
-			
 
-	
+
+
+
+
 	<script type="text/javascript" src="${path}/static/js/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="${path}/static/js/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="${path}/static/js/easyui/jquery.easyui.extend.js"></script>
@@ -66,52 +66,62 @@
 			orgMappingTree = $('#orgmapping_tree').tree({
 				url : '${path}/datafetch/orgmapping/tree',
 				onSelect : function(node){
-					$("input[name='unitCode']").val(node.id);
+					$("input[name='unitCode']").val(node.repCode);
 				}
 			});
 
 			$('#fixForm').form({
 				success : function(data){
 					var resultObj = JSON.parse(data);
-					var colName = resultObj.expression[0];
-					var colValue = resultObj.values[0];
-					$('#result_grid').datagrid({
-						fit : true,
-						columns : [[
-							{field : 'name',title : colName,width : 200,}
-						]],
-						data : [
-							{'name' : colValue}
-						]
-					});
+					if(resultObj.code == 'success'){
+						resultObj = resultObj.data;
+						var colName = resultObj.expression[0];
+						var colValue = resultObj.values[0];
+						$('#result_grid').datagrid({
+							fit : true,
+							columns : [[
+								{field : 'name',title : colName,width : 200,}
+							]],
+							data : [
+								{'name' : colValue}
+							]
+						});
+					}else{
+						parent.$.messager.alert({title:'错误',msg:resultObj.data});
+					}
 				}
 			});
 			$("#floatForm").form({
 				success : function(data){
 					var resultObj = JSON.parse(data);
-					var rowCount = resultObj.rowCount;
-					var colCount = resultObj.colResults.length;
-					var colNameArray = new Array();
-					var dataArray = new Array();
-					for(var i=0;i<colCount;i++){
-						colNameArray[i] = {field : 'f'+i,title : resultObj.colResults[i].expression[0]};
-					}
-					for(var j=0;j<rowCount;j++){
-						var dataObj = {};
-						for(var k=0;k<colCount;k++){
-							dataObj['f'+k] = resultObj.colResults[k].values[j];
+					if(resultObj.code == 'success'){
+						resultObj = resultObj.data;
+						var rowCount = resultObj.rowCount;
+						var colCount = resultObj.colResults.length;
+						var colNameArray = new Array();
+						var dataArray = new Array();
+						for(var i=0;i<colCount;i++){
+							colNameArray[i] = {field : 'f'+i,title : resultObj.colResults[i].expression[0]};
 						}
-						dataArray[j] = dataObj;
+						for(var j=0;j<rowCount;j++){
+							var dataObj = {};
+							for(var k=0;k<colCount;k++){
+								dataObj['f'+k] = resultObj.colResults[k].values[j];
+							}
+							dataArray[j] = dataObj;
+						}
+						$('#result_grid').datagrid({
+							fit : true,
+							columns : [colNameArray],
+							data : dataArray
+						});
+					}else{
+						parent.$.messager.alert({title:'错误',msg:resultObj.data});
 					}
-					$('#result_grid').datagrid({
-						fit : true,
-						columns : [colNameArray],
-						data : dataArray
-					});
 				}
 			});
 		});
-		
+
 		function floatFetch(){
 			var node = orgMappingTree.tree('getSelected');
 			if(node){
@@ -120,7 +130,7 @@
 				parent.$.messager.alert({ title : "提示",msg: "请先选择组织机构"});
 			}
 		}
-		
+
 		function fixFetch() {
 			var node = orgMappingTree.tree('getSelected');
 			if(node){
@@ -129,7 +139,7 @@
 				parent.$.messager.alert({ title : "提示",msg: "请先选择组织机构"});
 			}
 		}
-	
-	
+
+
 	</script>
 </body>

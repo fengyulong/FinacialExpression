@@ -1,12 +1,14 @@
 package priv.yulong.datafetch.fetchtest.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import priv.yulong.common.util.DateUtil;
+import priv.yulong.common.util.LogUtil;
 import priv.yulong.datafetch.datasourse.model.Datasource;
 import priv.yulong.datafetch.datasourse.service.DatasourceService;
 import priv.yulong.datafetch.org.model.OrgMapping;
@@ -62,26 +64,38 @@ public class FetchTestController {
      * @Return: priv.yulong.datafetch.response.FixExpResult
      * @Author: yulong.feng
      * @Date: 2019-11-08
-    **/
+     **/
     @ResponseBody
     @RequestMapping(value = "/fix", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public String fixFetch(String unitCode, String startDate, String endDate, String expression) throws ParseException {
-        Map<String, Object> envMap = new HashMap<String, Object>();
-        OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
-        Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
-        envMap.put(FinancialConstant.EnvField.ORG_CODE, orgMapping.getCode());
-        envMap.put(FinancialConstant.EnvField.DATASOURCE_CODE, orgMapping.getDatasourceCode());
-        envMap.put(FinancialConstant.EnvField.BOOK_CODE, orgMapping.getBookCode());
-        envMap.put(FinancialConstant.EnvField.START_YEAR, DateUtil.getYear(startDate));
-        envMap.put(FinancialConstant.EnvField.START_PERIOD, DateUtil.getMonth(startDate));
-        envMap.put(FinancialConstant.EnvField.END_YEAR, DateUtil.getYear(endDate));
-        envMap.put(FinancialConstant.EnvField.END_PERIOD, DateUtil.getMonth(endDate));
-        envMap.put(FinancialConstant.EnvField.SOFT_VERSION, ds.getSoftVersion());
-        FixExpression fixExpression = new FixExpression();
-        fixExpression.setExpression(expression);
-        FixExpResult fixExpResult = dataFetchService.fixFetch(fixExpression, envMap);
-        return JSON.toJSONString(fixExpResult);
+        LogUtil.info("固定取数测试开始，unitCode[{}];startDate[{}];endDate[{}];expression:[{}]", unitCode, startDate, endDate, expression);
+        JSONObject respObj = new JSONObject();
+        try {
+            Map<String, Object> envMap = new HashMap<String, Object>();
+            OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
+            Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
+            envMap.put(FinancialConstant.EnvField.ORG_CODE, orgMapping.getCode());
+            envMap.put(FinancialConstant.EnvField.DATASOURCE_CODE, orgMapping.getDatasourceCode());
+            envMap.put(FinancialConstant.EnvField.BOOK_CODE, orgMapping.getBookCode());
+            envMap.put(FinancialConstant.EnvField.START_YEAR, DateUtil.getYear(startDate));
+            envMap.put(FinancialConstant.EnvField.START_PERIOD, DateUtil.getMonth(startDate));
+            envMap.put(FinancialConstant.EnvField.END_YEAR, DateUtil.getYear(endDate));
+            envMap.put(FinancialConstant.EnvField.END_PERIOD, DateUtil.getMonth(endDate));
+            envMap.put(FinancialConstant.EnvField.SOFT_VERSION, ds.getSoftVersion());
+            FixExpression fixExpression = new FixExpression();
+            fixExpression.setExpression(expression);
+            FixExpResult fixExpResult = dataFetchService.fixFetch(fixExpression, envMap);
+            respObj.put("code", "success");
+            respObj.put("data", fixExpResult);
+            LogUtil.info("固定取数测试完成，unitCode[{}];startDate[{}];endDate[{}];expression:[{}];result[{}]", unitCode, startDate, endDate, expression, respObj.toJSONString());
+        } catch (Exception e) {
+            respObj.put("code", "fail");
+            respObj.put("data", e.getMessage());
+            LogUtil.error("固定取数测试完成，unitCode[{}];startDate[{}];endDate[{}];expression:[{}];exception[{}]", unitCode, startDate, endDate, expression, e);
+        }
+        return respObj.toJSONString();
     }
+
 
     /**
      * @MethodName: floatFetch
@@ -90,31 +104,42 @@ public class FetchTestController {
      * @Return: priv.yulong.datafetch.response.FloatExpResult
      * @Author: yulong.feng
      * @Date: 2019-11-08
-    **/
+     **/
     @ResponseBody
     @RequestMapping(value = "/float", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public String floatFetch(String unitCode, String startDate, String endDate, String expression, String colExpression) throws ParseException {
-        Map<String, Object> envMap = new HashMap<String, Object>();
-        OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
-        Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
-        envMap.put(FinancialConstant.EnvField.ORG_CODE, orgMapping.getCode());
-        envMap.put(FinancialConstant.EnvField.DATASOURCE_CODE, orgMapping.getDatasourceCode());
-        envMap.put(FinancialConstant.EnvField.BOOK_CODE, orgMapping.getBookCode());
-        envMap.put(FinancialConstant.EnvField.START_YEAR, DateUtil.getYear(startDate));
-        envMap.put(FinancialConstant.EnvField.START_PERIOD, DateUtil.getMonth(startDate));
-        envMap.put(FinancialConstant.EnvField.END_YEAR, DateUtil.getYear(endDate));
-        envMap.put(FinancialConstant.EnvField.END_PERIOD, DateUtil.getMonth(endDate));
-        envMap.put(FinancialConstant.EnvField.SOFT_VERSION, ds.getSoftVersion());
-        FloatExpression floatExpression = new FloatExpression();
-        floatExpression.setExpression(expression);
-        List<FixExpression> fList = new ArrayList<>();
-        for (String col : colExpression.split(",")) {
-            FixExpression fExp = new FixExpression();
-            fExp.setExpression(col);
-            fList.add(fExp);
+        LogUtil.info("固定取数测试开始，unitCode[{}];startDate[{}];endDate[{}];expression:[{}];colExpression", unitCode, startDate, endDate, expression, colExpression);
+        JSONObject respObj = new JSONObject();
+        try {
+            Map<String, Object> envMap = new HashMap<String, Object>();
+            OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
+            Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
+            envMap.put(FinancialConstant.EnvField.ORG_CODE, orgMapping.getCode());
+            envMap.put(FinancialConstant.EnvField.DATASOURCE_CODE, orgMapping.getDatasourceCode());
+            envMap.put(FinancialConstant.EnvField.BOOK_CODE, orgMapping.getBookCode());
+            envMap.put(FinancialConstant.EnvField.START_YEAR, DateUtil.getYear(startDate));
+            envMap.put(FinancialConstant.EnvField.START_PERIOD, DateUtil.getMonth(startDate));
+            envMap.put(FinancialConstant.EnvField.END_YEAR, DateUtil.getYear(endDate));
+            envMap.put(FinancialConstant.EnvField.END_PERIOD, DateUtil.getMonth(endDate));
+            envMap.put(FinancialConstant.EnvField.SOFT_VERSION, ds.getSoftVersion());
+            FloatExpression floatExpression = new FloatExpression();
+            floatExpression.setExpression(expression);
+            List<FixExpression> fList = new ArrayList<>();
+            for (String col : colExpression.split(",")) {
+                FixExpression fExp = new FixExpression();
+                fExp.setExpression(col);
+                fList.add(fExp);
+            }
+            floatExpression.setColExpressions(fList);
+            FloatExpResult floatExpResult = dataFetchService.floatFetch(floatExpression, envMap);
+            respObj.put("code", "success");
+            respObj.put("data", floatExpResult);
+            LogUtil.info("固定取数测试开始，unitCode[{}];startDate[{}];endDate[{}];expression:[{}];colExpression;result[{}]", unitCode, startDate, endDate, expression, colExpression, respObj);
+        } catch (Exception e) {
+            respObj.put("code", "fail");
+            respObj.put("data", e.getMessage());
+            LogUtil.error("固定取数测试开始，unitCode[{}];startDate[{}];endDate[{}];expression:[{}];colExpression;exception[{}]", unitCode, startDate, endDate, expression, colExpression, e);
         }
-        floatExpression.setColExpressions(fList);
-        FloatExpResult floatExpResult = dataFetchService.floatFetch(floatExpression, envMap);
-        return JSON.toJSONString(floatExpResult);
+        return respObj.toJSONString();
     }
 }
