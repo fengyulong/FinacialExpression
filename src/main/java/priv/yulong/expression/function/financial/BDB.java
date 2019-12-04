@@ -47,7 +47,7 @@ public class BDB extends FinancialFunctionBase implements Function {
         Integer rowNum = args[1].getNumberValue().intValue();
         String colName = args[2].getStringValue();
         Map<String,String> rowMap = cacheMap.get(rowNum);
-        String result = rowMap == null ? null : rowMap.get(colName.toUpperCase());
+        String result = rowMap == null ? null : rowMap.get("SEGMENT" + colName.toUpperCase());
         return new StringValue(result);
     }
 

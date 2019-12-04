@@ -32,7 +32,7 @@ public class VAL extends FinancialFunctionBase implements Function {
 		if (arg.getDataType() == DataType.NUMBER) {
 			ret = dataSet.getString(arg.getNumberValue().intValue());
 		} else {
-			ret = dataSet.getString(arg.getStringValue());
+			ret = dataSet.getString("SEGMENT" + arg.getStringValue());
 		}
 		return new StringValue(ret);
 	}

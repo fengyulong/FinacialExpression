@@ -1,5 +1,6 @@
 package priv.yulong.expression.function.financial.zm;
 
+import priv.yulong.common.util.LogUtil;
 import priv.yulong.expression.datatype.Valuable;
 import priv.yulong.expression.datatype.impl.DataSet;
 import priv.yulong.expression.function.financial.FinancialConstant;
@@ -24,6 +25,7 @@ public class FBDBSqlGenerator implements SqlGenerator {
         String sql = "select * from CUX_RP_LINE#tableName# where HEADER_ID = #headerId# order by ORDER_NUM";
         sql = sql.replace("#tableName#", tableName);
         sql = sql.replace("#headerId#", headerId);
+        LogUtil.info("FBDB取数SQL[{}]",sql);
         return sql;
     }
 

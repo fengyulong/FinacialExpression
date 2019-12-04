@@ -1,5 +1,6 @@
 package priv.yulong.expression.function.financial.zm;
 
+import priv.yulong.common.util.LogUtil;
 import priv.yulong.expression.datatype.Valuable;
 import priv.yulong.expression.function.financial.FinancialConstant;
 import priv.yulong.expression.function.financial.SqlGenerator;
@@ -25,6 +26,7 @@ public class BDBSqlGenerator implements SqlGenerator {
         sql = sql.replace("#year#", year + "");
         sql = sql.replace("#period#", period + "");
         sql = sql.replace("#orgCode#", orgCode);
+        LogUtil.info("BDB取数SQL[{}]",sql);
         return sql;
     }
 

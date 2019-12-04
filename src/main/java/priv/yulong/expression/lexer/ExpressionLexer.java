@@ -196,33 +196,36 @@ public class ExpressionLexer {
 			String lexeme = sb.toString();
 			Function function = FunctionFactory.getFunction(lexeme);
 			if (function != null) {
+				int nextNum = 0;
+				int splitNum = 0;
+				while (this.peek != '(') {
+					nextChar();
+					nextNum++;
+				}
+				int left = 0;
+				int right = 0;
+				do {
+					nextChar();
+					nextNum++;
+					if (this.peek == ',' && left == right) {
+						splitNum++;
+					} else if (this.peek == '(') {
+						left++;
+					} else if (this.peek == ')') {
+						right++;
+					}
+				} while (left >= right);
+				while (nextNum > 0) {
+					prevChar();
+					nextNum--;
+				}
 				if (function.getDimension() == -1) {
-					int nextNum = 0;
-					int splitNum = 0;
-					while (this.peek != '(') {
-						nextChar();
-						nextNum++;
-					}
-					int left = 0;
-					int right = 0;
-					do {
-						nextChar();
-						nextNum++;
-						if (this.peek == ',' && left == right) {
-							splitNum++;
-						} else if (this.peek == '(') {
-							left++;
-						} else if (this.peek == ')') {
-							right++;
-						}
-					} while (left >= right);
-					while (nextNum > 0) {
-						prevChar();
-						nextNum--;
-					}
 					return new FunctionToken(lexeme, startIndex, function, splitNum + 1);
 				} else {
-					return new FunctionToken(lexeme, startIndex, function, function.getDimension());
+					if(splitNum + 1 == function.getDimension()){
+						return new FunctionToken(lexeme, startIndex, function, function.getDimension());
+					}
+					throw new ExpressionRuntimeException("Illegal param number");
 				}
 			} else {
 				return new VariableToken(lexeme, startIndex);
