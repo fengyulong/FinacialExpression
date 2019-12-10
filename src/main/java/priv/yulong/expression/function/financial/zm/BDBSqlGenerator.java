@@ -24,7 +24,7 @@ public class BDBSqlGenerator implements SqlGenerator {
         String sql = getSqlTemplate();
         sql = sql.replace("#tableName#", tableName);
         sql = sql.replace("#year#", year + "");
-        sql = sql.replace("#period#", period + "");
+        sql = sql.replace("#period#", period > 9 ? period + "" : "0" + period);
         sql = sql.replace("#orgCode#", orgCode);
         LogUtil.info("BDB取数SQL[{}]",sql);
         return sql;
