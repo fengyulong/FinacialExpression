@@ -82,7 +82,7 @@ public class FBDB extends BDB {
         desc.append("公式格式：FBDB(param1,param2) 								\n");
         desc.append("公式描述：中煤ERP中间库取数					            	\n");
         desc.append("参数说明：param1中间库表名(必填)，param2行序号(必填)		        \n");
-        desc.append("公式示例：BDB('1'，5)  表示从中间库cux_rp_header1中取第5行的值  	\n");
+        desc.append("公式示例：FBDB(1，5)  表示从中间库cux_rp_header1中取第5行的值  	\n");
         return desc.toString();
     }
 }

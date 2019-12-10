@@ -39,7 +39,7 @@ public abstract class AbstractValue implements Valuable {
 	
 	@Override
 	public DataSet getDataSetValue() {
-		throw new ExpressionRuntimeException("[" + getStringValue() + "] cannot be converted to a Boolean value");
+		throw new ExpressionRuntimeException("[" + getStringValue() + "] cannot be converted to a DataSet value");
 	}
 
 

@@ -115,7 +115,7 @@ public class DataSet {
 	public boolean addField(String field) {
 		if (fields.size() < fieldCount) {
 			fields.add(field);
-			fieldIndexMap.put(field.toUpperCase(), fields.size());
+			fieldIndexMap.put(field.toUpperCase(), fields.size() - 1);
 			return true;
 		}
 		return false;
@@ -142,7 +142,7 @@ public class DataSet {
 		if (getDataType(index) == DataType.DATE) {
 			return DateUtil.getDateFormat(activeRecord.getDate(index));
 		} else {
-			return activeRecord.getObject(index).toString();
+			return activeRecord.getObject(index) == null ? null : activeRecord.getObject(index).toString();
 		}
 	}
 
