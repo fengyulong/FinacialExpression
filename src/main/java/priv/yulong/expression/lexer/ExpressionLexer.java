@@ -213,6 +213,9 @@ public class ExpressionLexer {
 						left++;
 					} else if (this.peek == ')') {
 						right++;
+					}else if(this.peek == CharacterIterator.DONE){
+						//中文括号可能导致此异常
+						throw new ExpressionRuntimeException("function parsing exception");
 					}
 				} while (left >= right);
 				while (nextNum > 0) {
