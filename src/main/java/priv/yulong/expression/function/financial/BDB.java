@@ -1,5 +1,6 @@
 package priv.yulong.expression.function.financial;
 
+import priv.yulong.common.util.LogUtil;
 import priv.yulong.datafetch.datasourse.model.Datasource;
 import priv.yulong.expression.datatype.DataType;
 import priv.yulong.expression.datatype.Valuable;
@@ -70,6 +71,7 @@ public class BDB extends FinancialFunctionBase implements Function {
         String datasourceCode = (String) env.get(FinancialConstant.EnvField.DATASOURCE_CODE);
         Connection connection = null;
         try {
+            LogUtil.info("开始执行SQL[{}]",sql);
             connection = datasourceService.getConnection(datasourceCode);
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSetMetaData rsmd = statement.getMetaData();
@@ -89,6 +91,7 @@ public class BDB extends FinancialFunctionBase implements Function {
                 cacheMap.put(result.getInt("ORDER_NUM"), dataMap);
             }
             result.close();
+            LogUtil.info("完成执行SQL[{}]",sql);
         } catch (Exception e) {
             throw new ExpressionRuntimeException("执行公式取数发生错误", e);
         } finally {

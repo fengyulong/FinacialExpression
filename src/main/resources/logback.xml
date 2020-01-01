@@ -27,10 +27,6 @@
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -
 				%msg%n</pattern>
 		</encoder>
-		<!--日志文件最大的大小 -->
-		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<MaxFileSize>10MB</MaxFileSize>
-		</triggeringPolicy>
 	</appender>
 
 	<appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -49,10 +45,6 @@
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -
 				%msg%n</pattern>
 		</encoder>
-		<!--日志文件最大的大小 -->
-		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<MaxFileSize>10MB</MaxFileSize>
-		</triggeringPolicy>
 	</appender>
 
 

@@ -24,6 +24,10 @@ public class BDBSqlGenerator implements SqlGenerator {
         String sql = getSqlTemplate();
         sql = sql.replace("#tableName#", tableName);
         sql = sql.replace("#year#", year + "");
+        //年终取调整期数据
+        if(period == 12){
+            period = 13;
+        }
         sql = sql.replace("#period#", period > 9 ? period + "" : "0" + period);
         sql = sql.replace("#orgCode#", orgCode);
         LogUtil.info("BDB取数SQL[{}]",sql);
