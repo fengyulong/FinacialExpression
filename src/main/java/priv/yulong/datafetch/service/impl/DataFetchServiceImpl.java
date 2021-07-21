@@ -183,4 +183,11 @@ public class DataFetchServiceImpl implements DataFetchService {
 		return floatExpResult;
 	}
 
+
+	private boolean isMonthPeriod(DataFetchEnv dataFetchEnv) {
+		int start = DateUtil.getMonth(dataFetchEnv.getStartTime());
+		int end = DateUtil.getMonth(dataFetchEnv.getEndTime());
+		return start == end;
+	}
+
 }
