@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.yulong.datafetch.org.mapper.OrgExtMappingMapper">
+	<resultMap id="BaseResultMap" type="priv.yulong.datafetch.org.model.OrgMapping">
+		<id column="CODE" jdbcType="VARCHAR" property="code" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="DATASOURCE_CODE" jdbcType="VARCHAR" property="datasourceCode" />
+		<result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+		<result column="REP_CODE" jdbcType="VARCHAR" property="repCode" />
+		<result column="REP_NAME" jdbcType="VARCHAR" property="repName" />
+		<result column="BOOK_CODE" jdbcType="VARCHAR" property="bookCode" />
+	</resultMap>
+	<resultMap id="TreeResultMap" type="priv.yulong.datafetch.org.model.OrgMapping" extends="BaseResultMap">
+		<collection property="children" javaType="java.util.ArrayList" column="code"
+			ofType="priv.yulong.datafetch.org.model.OrgMapping" select="selectSubOrgMapping"></collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		CODE, NAME, REMARK, DATASOURCE_CODE, PARENT_CODE, REP_CODE, REP_NAME, BOOK_CODE
+	</sql>
+	<select id="selectSubOrgMapping" parameterType="java.lang.String" resultMap="TreeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_EXT_MAPPING
+		where PARENT_CODE = #{code,jdbcType=VARCHAR} order by code
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_EXT_MAPPING order by code
+	</select>
+	
+	<select id="selectByParentCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_EXT_MAPPING
+		where PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+		 order by code
+	</select>
+	
+	<select id="selectByRepCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_EXT_MAPPING
+		where REP_CODE = #{repCode,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectWithNextLevelChildren" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_EXT_MAPPING
+		where CODE=  #{parentCode,jdbcType=VARCHAR} or PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+		 order by code
+	</select>
+	
+	<select id="selectTree" resultMap="TreeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_EXT_MAPPING
+		where PARENT_CODE = 'ROOT'
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DIC_ORG_EXT_MAPPING
+		where CODE = #{code,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from DIC_ORG_EXT_MAPPING
+		where CODE = #{code,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="priv.yulong.datafetch.org.model.OrgMapping">
+		insert into DIC_ORG_EXT_MAPPING (CODE, NAME, REMARK,
+		DATASOURCE_CODE, PARENT_CODE,
+		REP_CODE,REP_NAME,BOOK_CODE
+		)
+		values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{datasourceCode,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{repCode,jdbcType=VARCHAR}, #{repName,jdbcType=VARCHAR},#{bookCode,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="priv.yulong.datafetch.org.model.OrgMapping">
+		insert into DIC_ORG_EXT_MAPPING
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				CODE,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="datasourceCode != null">
+				DATASOURCE_CODE,
+			</if>
+			<if test="parentCode != null">
+				PARENT_CODE,
+			</if>
+			<if test="repCode != null">
+				REP_CODE,
+			</if>
+			<if test="repName != null">
+				REP_NAME,
+			</if>
+			<if test="bookCode != null">
+				BOOK_CODE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="datasourceCode != null">
+				#{datasourceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null">
+				#{parentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="repCode != null">
+				#{repCode,jdbcType=VARCHAR},
+			</if>
+			<if test="repName != null">
+				#{repName,jdbcType=VARCHAR},
+			</if>
+			<if test="bookCode != null">
+				#{bookCode,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="priv.yulong.datafetch.org.model.OrgMapping">
+		update DIC_ORG_EXT_MAPPING
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="datasourceCode != null">
+				DATASOURCE_CODE = #{datasourceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null">
+				PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="repCode != null">
+				REP_CODE = #{repCode,jdbcType=VARCHAR},
+			</if>
+			<if test="repName != null">
+				REP_NAME = #{repName,jdbcType=VARCHAR},
+			</if>
+			<if test="bookCode != null">
+				BOOK_CODE = #{bookCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where CODE = #{code,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="priv.yulong.datafetch.org.model.OrgMapping">
+		update DIC_ORG_EXT_MAPPING
+		set NAME = #{name,jdbcType=VARCHAR},
+		REMARK =
+		#{remark,jdbcType=VARCHAR},
+		DATASOURCE_CODE = #{datasourceCode,jdbcType=VARCHAR},
+		PARENT_CODE =
+		#{parentCode,jdbcType=VARCHAR},
+		REP_CODE = #{repCode,jdbcType=VARCHAR},
+		REP_NAME = #{repName,jdbcType=VARCHAR},
+		BOOK_CODE = #{bookCode,jdbcType=VARCHAR}
+		where CODE = #{code,jdbcType=VARCHAR}
+	</update>
+</mapper>
