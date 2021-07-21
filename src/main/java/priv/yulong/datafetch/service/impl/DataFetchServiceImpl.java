@@ -14,6 +14,7 @@ import priv.yulong.common.util.DateUtil;
 import priv.yulong.datafetch.datasourse.model.Datasource;
 import priv.yulong.datafetch.datasourse.service.DatasourceService;
 import priv.yulong.datafetch.org.model.OrgMapping;
+import priv.yulong.datafetch.org.service.OrgExtMappingService;
 import priv.yulong.datafetch.org.service.OrgMappingService;
 import priv.yulong.datafetch.requester.DataFetchEnv;
 import priv.yulong.datafetch.requester.DataFetchRequester;
@@ -36,6 +37,8 @@ public class DataFetchServiceImpl implements DataFetchService {
 	@Resource
 	private OrgMappingService orgMappingService;
 	@Resource
+	private OrgExtMappingService orgExtMappingService;
+	@Resource
 	private DatasourceService datasourceService;
 
 	@Override
@@ -43,9 +46,14 @@ public class DataFetchServiceImpl implements DataFetchService {
 		DataFetchEnv env = dataFetchRequester.getFetchEnv();
 
 		Map<String, Object> envMap = new HashMap<String, Object>();
-		OrgMapping orgMapping = orgMappingService.getByRepCode(env.getUnitCode());
-		Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
+		OrgMapping orgMapping = null;
+		if(isMonthPeriod(env)){
+			orgMapping = orgExtMappingService.getByRepCode(env.getUnitCode());
+		}else{
+			orgMapping = orgMappingService.getByRepCode(env.getUnitCode());
+		}
 
+		Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
 		envMap.put(FinancialConstant.EnvField.ORG_CODE, orgMapping.getCode());
 		envMap.put(FinancialConstant.EnvField.DATASOURCE_CODE, orgMapping.getDatasourceCode());
 		envMap.put(FinancialConstant.EnvField.BOOK_CODE, orgMapping.getBookCode());

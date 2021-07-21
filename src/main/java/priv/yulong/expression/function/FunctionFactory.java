@@ -28,6 +28,9 @@ public class FunctionFactory {
         registerFunction(new BDB());
         registerFunction(new FBDB());
         registerFunction(new VAL());
+        registerFunction(new MDB());
+        registerFunction(new FMDB());
+
     }
 
     public static Function getFunction(String identifier) {
