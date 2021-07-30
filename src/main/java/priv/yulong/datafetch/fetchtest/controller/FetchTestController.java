@@ -12,7 +12,9 @@ import priv.yulong.common.util.LogUtil;
 import priv.yulong.datafetch.datasourse.model.Datasource;
 import priv.yulong.datafetch.datasourse.service.DatasourceService;
 import priv.yulong.datafetch.org.model.OrgMapping;
+import priv.yulong.datafetch.org.service.OrgExtMappingService;
 import priv.yulong.datafetch.org.service.OrgMappingService;
+import priv.yulong.datafetch.requester.DataFetchEnv;
 import priv.yulong.datafetch.requester.FixExpression;
 import priv.yulong.datafetch.requester.FloatExpression;
 import priv.yulong.datafetch.response.FixExpResult;
@@ -39,6 +41,8 @@ public class FetchTestController {
     @Resource
     private OrgMappingService orgMappingService;
     @Resource
+    private OrgExtMappingService orgExtMappingService;
+    @Resource
     private DatasourceService datasourceService;
     @Resource
     private DataFetchService dataFetchService;
@@ -57,6 +61,12 @@ public class FetchTestController {
         return "datafetch/fetchtest/list";
     }
 
+    @RequiresPermissions(value = {"datafetch:fetchtest:list1"})
+    @RequestMapping(value = "/list1", method = RequestMethod.GET)
+    public String list1() {
+        return "datafetch/fetchtest/list1";
+    }
+
     /**
      * @MethodName: fixFetch
      * @Description: 固定公式取数
@@ -72,7 +82,12 @@ public class FetchTestController {
         JSONObject respObj = new JSONObject();
         try {
             Map<String, Object> envMap = new HashMap<String, Object>();
-            OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
+            OrgMapping orgMapping = null;
+            if (isMonthPeriod(startDate, endDate)) {
+                orgMapping = orgExtMappingService.getByRepCode(unitCode);
+            } else {
+                orgMapping = orgMappingService.getByRepCode(unitCode);
+            }
             Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
             envMap.put(FinancialConstant.EnvField.ORG_CODE, orgMapping.getCode());
             envMap.put(FinancialConstant.EnvField.DATASOURCE_CODE, orgMapping.getDatasourceCode());
@@ -112,7 +127,12 @@ public class FetchTestController {
         JSONObject respObj = new JSONObject();
         try {
             Map<String, Object> envMap = new HashMap<String, Object>();
-            OrgMapping orgMapping = orgMappingService.getByRepCode(unitCode);
+            OrgMapping orgMapping = null;
+            if (isMonthPeriod(startDate, endDate)) {
+                orgMapping = orgExtMappingService.getByRepCode(unitCode);
+            } else {
+                orgMapping = orgMappingService.getByRepCode(unitCode);
+            }
             Datasource ds = datasourceService.getDataSource(orgMapping.getDatasourceCode());
             envMap.put(FinancialConstant.EnvField.ORG_CODE, orgMapping.getCode());
             envMap.put(FinancialConstant.EnvField.DATASOURCE_CODE, orgMapping.getDatasourceCode());
@@ -142,4 +162,17 @@ public class FetchTestController {
         }
         return respObj.toJSONString();
     }
+
+    private boolean isMonthPeriod(String startDate, String endDate) {
+        int start = 0;
+        int end = 0;
+        try {
+            start = DateUtil.getMonth(startDate);
+            end = DateUtil.getMonth(endDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return start == end;
+    }
+
 }
